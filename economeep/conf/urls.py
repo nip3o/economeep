@@ -5,8 +5,12 @@ from django.views.generic import TemplateView
 from django.contrib import admin
 admin.autodiscover()
 
-urlpatterns = patterns('',
+urlpatterns = patterns(
+    '',
+    url(r'', include('social_auth.urls')),
     url(r'^$', TemplateView.as_view(template_name='base.html')),
+
+    url(r'^users/', include('economeep.users.urls')),
 
     # Examples:
     # url(r'^$', 'economeep.views.home', name='home'),

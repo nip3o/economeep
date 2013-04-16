@@ -50,6 +50,13 @@ For production::
     $ pip install -r requirements.txt
 
 
+Regardless of environment type, you will also need some additional utilities
+that typically is easiest to install globally with ``npm`` (the Node.js
+package manager). Run the following from the project root directory.::
+
+    # npm install -g
+
+
 Database configuration
 =======================
 

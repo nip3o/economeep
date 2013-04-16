@@ -29,8 +29,8 @@ easier. The server and client will communicate via AJAX, by sending JSON
 supported in the Python standard library as well as in Javascript).
 
 The standard Django ORM will be used, with a traditional PostgreSQL
-database as storage backend. Authentication will be handled via OAuth,
-using ``django-oauth-backend``.
+database as storage backend. Authentication will be handled via some
+OAuth-based service/services such as Facebook, using ``django-social-auth``.
 
 On the client side, AngularJS and jQuery will be used. I have previously
 used jQuery quite a lot, but I am especially keen on getting to know how

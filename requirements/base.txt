@@ -5,3 +5,5 @@ django-model-utils==1.1.0
 logutils==0.3.3
 South==0.7.6
 psycopg2==2.5
+django-social-auth==0.7.22
+django-compressor==1.3

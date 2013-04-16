@@ -1,0 +1,12 @@
+{
+  "name": "economeep",
+  "version": "0.0.1",
+  "description": "Package used to manage NPM dependencies",
+  "author": "Niclas Olofsson <nicol271@student.liu.se>",
+  "dependencies": {
+    "less": "1.3.x",
+    "coffee-script": "1.6.x",
+    "karma": "0.8.x"
+  },
+  "engine": "node >= 0.4.1"
+}

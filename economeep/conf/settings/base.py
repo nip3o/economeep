@@ -18,6 +18,35 @@ def get_env_variable(var_name, default=None):
         raise ImproperlyConfigured(error_msg)
 
 
+########## DATABASE CONFIGURATION
+# See: https://docs.djangoproject.com/en/dev/ref/settings/#databases
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': get_env_variable('DB_NAME', default='economeep'),
+        'USER': get_env_variable('DB_USER'),
+        'PASSWORD': get_env_variable('DB_PASSWORD'),
+        'HOST': get_env_variable('DB_HOST', default='localhost'),
+        'PORT': int(get_env_variable('DB_PORT', default=5432)),
+    }
+}
+########## END DATABASE CONFIGURATION
+
+
+########## SOCIAL AUTH CONFIGURATION
+# See: http://django-social-auth.readthedocs.org/en/latest/backends/facebook.html
+FACEBOOK_APP_ID = get_env_variable('FACEBOOK_APP_ID', '')
+FACEBOOK_API_SECRET = get_env_variable('FACEBOOK_API_SECRET', '')
+
+AUTHENTICATION_BACKENDS = (
+    'social_auth.backends.facebook.FacebookBackend',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+LOGIN_URL = '/users/login/'
+########## ENDSOCIAL AUTH CONFIGURATION
+
+
 ########## PATH CONFIGURATION
 # Absolute filesystem path to the Django project directory:
 DJANGO_ROOT = dirname(dirname(abspath(__file__)))
@@ -182,12 +211,14 @@ DJANGO_APPS = (
 )
 
 THIRD_PARTY_APPS = (
-    # Database migration helpers:
-    'south',
+    'south',       # Database migration tool
+    'compressor',  # CSS/JS compiler and compressor
 )
 
 # Apps specific for this project go here.
 LOCAL_APPS = (
+    'users',
+    'utils',
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
