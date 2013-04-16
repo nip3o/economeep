@@ -26,7 +26,7 @@ Clone the repository
 
 
 Virtualenv with virtualenvwrapper
---------------------------
+----------------------------------
 
 In Linux and Mac OSX, you can install virtualenvwrapper (http://virtualenvwrapper.readthedocs.org/en/latest/),
 which will take care of managing your virtual environments and adding the
@@ -58,7 +58,30 @@ This assumes that you have a working PostgreSQL database set-up
 but this can be configured using the ``DB_NAME`` environment variable.
 
 The database connection settings is configured using environment variables.
-Add your credentials to your ``~/.virtualenvs/eco/bin/postactivate`` file::
+Add your credentials to your ``$VIRTUAL_ENV/bin/postactivate`` file.::
 
     export DB_USER=my_username
     export DB_PASSWORD=my_secr3t_p4ssw0rd
+
+
+Environment configuration
+==========================
+To avoid some teadiuos writing, do the following:
+
+* Alias ``django-admin.py`` to ``dj`` (for example).
+* Add ``DJANGO_SETTINGS_MODULE=conf.settings.development`` to your
+ ``$VIRTUAL_ENV/bin/postactivate`` file.::
+
+    $ echo "alias dj='django-admin.py'" >> ~/.bashrc
+    $ echo "export DJANGO_SETTINGS_MODULE=conf.settings.development" >> $VIRTUAL_ENV/bin/postactivate
+
+
+Getting started
+================
+
+After reloading your virtualenv (i.e. ``workon eco``), the development server
+can be started with ``dj runserver``. You will also need to run database
+initialization and migrations.::
+
+    $ dj syncdb
+    $ dj migrate
