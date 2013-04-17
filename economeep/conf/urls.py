@@ -10,7 +10,7 @@ urlpatterns = patterns(
     url(r'', include('social_auth.urls')),
     url(r'^$', TemplateView.as_view(template_name='base.html')),
 
-    url(r'^users/', include('economeep.users.urls')),
+    url(r'^users/', include('users.urls')),
 
     # Examples:
     # url(r'^$', 'economeep.views.home', name='home'),

@@ -33,6 +33,14 @@ DATABASES = {
 ########## END DATABASE CONFIGURATION
 
 
+########## DJANGO-COMPRESSOR CONFIGURATION
+COMPRESS_PRECOMPILERS = (
+    ('text/coffeescript', 'coffee --compile --stdio'),
+    ('text/less', 'lessc {infile} {outfile}'),
+)
+########## END DJANGO-COMPRESSOR CONFIGURATION
+
+
 ########## SOCIAL AUTH CONFIGURATION
 # See: http://django-social-auth.readthedocs.org/en/latest/backends/facebook.html
 FACEBOOK_APP_ID = get_env_variable('FACEBOOK_APP_ID', '')
@@ -128,6 +136,8 @@ STATICFILES_DIRS = (
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+
+    'compressor.finders.CompressorFinder',
 )
 ########## END STATIC FILE CONFIGURATION
 
