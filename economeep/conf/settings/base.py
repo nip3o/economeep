@@ -221,12 +221,14 @@ DJANGO_APPS = (
 )
 
 THIRD_PARTY_APPS = (
-    'south',       # Database migration tool
-    'compressor',  # CSS/JS compiler and compressor
+    'south',           # Database migration tool
+    'compressor',      # CSS/JS compiler and compressor
+    'rest_framework',  # RESTful framwork tool
 )
 
 # Apps specific for this project go here.
 LOCAL_APPS = (
+    'stocks',
     'users',
     'utils',
 )
