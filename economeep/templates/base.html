@@ -16,16 +16,16 @@
     {% endcompress %}
   </head>
 
-  <body ng-controller="PhoneListCtrl">
+  <body ng-controller="StockListCtrl">
     <div class="container">
-        <h1>Angular.js test</h1>
+        <h1>Some stocks</h1>
 
         {% verbatim %}
 
          <ul>
-            <li ng-repeat="itm in itms">
-                {{itm.name}}
-                <p>{{itm.snippet}}</p>
+            <li ng-repeat="stock in stocks">
+                {{ stock.name }}
+                <p>{{ stock.short_name }}</p>
             </li>
         </ul>
 
@@ -35,9 +35,12 @@
     <script src="{% static "js/lib/jquery-1.9.1.min.js" %}" type="text/javascript" charset="utf-8"></script>
     <script src="{% static "js/lib/bootstrap-2.3.1.min.js" %}" type="text/javascript" charset="utf-8"></script>
     <script src="{% static "js/lib/angular-1.1.4.min.js" %}" type="text/javascript" charset="utf-8"></script>
+    <script src="{% static "js/lib/angular-resource.min.js" %}" type="text/javascript" charset="utf-8"></script>
 
+    <script src="{% static "js/services.coffee" %}" type="text/coffeescript" charset="utf-8"></script>
     <script src="{% static "js/app.js" %}" type="text/javascript" charset="utf-8"></script>
     <script src="{% static "js/base.coffee" %}" type="text/coffeescript" charset="utf-8"></script>
+
     {% block js %}{% endblock js %}
     {% endcompress %}
   </body>

@@ -1,1 +1,1 @@
-angular.module('EconomeepApp', []);
+angular.module('EconomeepApp', ['economeepServices']);
