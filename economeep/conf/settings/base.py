@@ -55,7 +55,7 @@ AUTHENTICATION_BACKENDS = (
 )
 
 LOGIN_URL = '/users/login/'
-LOGIN_REDIRECT_URL = '/users/profile/'
+LOGIN_REDIRECT_URL = '/'
 ########## ENDSOCIAL AUTH CONFIGURATION
 
 
@@ -225,6 +225,7 @@ THIRD_PARTY_APPS = (
 
 # Apps specific for this project go here.
 LOCAL_APPS = (
+    'payments',
     'stocks',
     'users',
     'utils',

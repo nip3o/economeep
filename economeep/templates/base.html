@@ -2,7 +2,7 @@
 {% load compress %}
 
 <!DOCTYPE html>
-<html lang="en" ng-app="economeep">
+<html lang="en">
   <head>
     <meta charset="utf-8">
     <title>{% block title %}economeep{% endblock title %}</title>
@@ -14,10 +14,14 @@
     <script src="{% static "js/lib/angular-1.1.4.min.js" %}" type="text/javascript" charset="utf-8"></script>
     <script src="{% static "js/lib/angular-resource.min.js" %}" type="text/javascript" charset="utf-8"></script>
 
-    <script src="{% static "coffee/app.coffee" %}" type="text/coffeescript" charset="utf-8"></script>
 
+    <script src="{% static "coffee/payment_resource.coffee" %}" type="text/coffeescript" charset="utf-8"></script>
     <script src="{% static "coffee/resources/stocks.coffee" %}" type="text/coffeescript" charset="utf-8"></script>
     <script src="{% static "coffee/controllers/stock_list.coffee" %}" type="text/coffeescript" charset="utf-8"></script>
+
+    <script src="{% static "coffee/app.coffee" %}" type="text/coffeescript" charset="utf-8"></script>
+
+
 
     {% block js %}{% endblock js %}
     {% endcompress %}
@@ -28,18 +32,28 @@
     {% endcompress %}
   </head>
 
-  <body ng-controller="StockListCtrl">
+  <body ng-app="economeep">
     <div class="container">
-        <h1>Some stocks</h1>
-
         {% verbatim %}
 
-         <ul>
-            <li ng-repeat="stock in stocks">
-                {{ stock.name }}
-                <p>{{ stock.short_name }}</p>
-            </li>
-        </ul>
+        <div ng-controller="StockListCtrl">
+            <h2>Some stocks</h2>
+             <ul>
+                <li ng-repeat="stock in stocks">
+                    {{ stock.name }}
+                    <p>{{ stock.short_name }}</p>
+                </li>
+            </ul>
+        </div>
+
+        <div ng-controller="PaymentListCtrl" ng-show="logged_in">
+            <h2>My payments</h2>
+             <ul>
+                <li ng-repeat="payment in payments">
+                    {{ payment.description }} <b>{{ payment.amount }}</b>
+                </li>
+            </ul>
+        </div>
 
         {% endverbatim %}
 

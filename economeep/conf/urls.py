@@ -23,6 +23,7 @@ urlpatterns = patterns(
     url(r'^admin/', include(admin.site.urls)),
 
     # Apps
+    url(r'^payments/', include('payments.urls')),
     url(r'^stocks/', include('stocks.urls')),
     url(r'^users/', include('users.urls')),
 )
