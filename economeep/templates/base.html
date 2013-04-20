@@ -2,7 +2,7 @@
 {% load compress %}
 
 <!DOCTYPE html>
-<html lang="en" ng-app="EconomeepApp">
+<html lang="en" ng-app="economeep">
   <head>
     <meta charset="utf-8">
     <title>{% block title %}economeep{% endblock title %}</title>
@@ -37,9 +37,10 @@
     <script src="{% static "js/lib/angular-1.1.4.min.js" %}" type="text/javascript" charset="utf-8"></script>
     <script src="{% static "js/lib/angular-resource.min.js" %}" type="text/javascript" charset="utf-8"></script>
 
-    <script src="{% static "js/services.coffee" %}" type="text/coffeescript" charset="utf-8"></script>
-    <script src="{% static "js/app.js" %}" type="text/javascript" charset="utf-8"></script>
-    <script src="{% static "js/base.coffee" %}" type="text/coffeescript" charset="utf-8"></script>
+    <script src="{% static "coffee/app.coffee" %}" type="text/coffeescript" charset="utf-8"></script>
+
+    <script src="{% static "coffee/resources/stocks.coffee" %}" type="text/coffeescript" charset="utf-8"></script>
+    <script src="{% static "coffee/controllers/stock_list.coffee" %}" type="text/coffeescript" charset="utf-8"></script>
 
     {% block js %}{% endblock js %}
     {% endcompress %}

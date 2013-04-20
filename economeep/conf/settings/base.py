@@ -149,14 +149,6 @@ SECRET_KEY = r"wf5m6!wk#=)@60l3@cms@g9&oo0g712v+1abv!s5!jlh()j&7f"
 ########## END SECRET CONFIGURATION
 
 
-########## FIXTURE CONFIGURATION
-# See: https://docs.djangoproject.com/en/dev/ref/settings/#std:setting-FIXTURE_DIRS
-FIXTURE_DIRS = (
-    normpath(join(SITE_ROOT, 'fixtures')),
-)
-########## END FIXTURE CONFIGURATION
-
-
 ########## TEMPLATE CONFIGURATION
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#template-context-processors
 TEMPLATE_CONTEXT_PROCESSORS = (
