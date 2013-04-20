@@ -17,6 +17,7 @@ def get_env_variable(var_name, default=None):
         error_msg = "Set the %s environment variable" % var_name
         raise ImproperlyConfigured(error_msg)
 
+APPEND_SLASH = True
 
 ########## DATABASE CONFIGURATION
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#databases
@@ -28,6 +29,7 @@ DATABASES = {
         'PASSWORD': get_env_variable('DB_PASSWORD'),
         'HOST': get_env_variable('DB_HOST', default='localhost'),
         'PORT': int(get_env_variable('DB_PORT', default=5432)),
+        'OPTIONS': {'autocommit': True}
     }
 }
 ########## END DATABASE CONFIGURATION
@@ -45,6 +47,7 @@ COMPRESS_PRECOMPILERS = (
 # See: http://django-social-auth.readthedocs.org/en/latest/backends/facebook.html
 FACEBOOK_APP_ID = get_env_variable('FACEBOOK_APP_ID', '')
 FACEBOOK_API_SECRET = get_env_variable('FACEBOOK_API_SECRET', '')
+FACEBOOK_EXTENDED_PERMISSIONS = ['email']
 
 AUTHENTICATION_BACKENDS = (
     'social_auth.backends.facebook.FacebookBackend',
@@ -52,6 +55,7 @@ AUTHENTICATION_BACKENDS = (
 )
 
 LOGIN_URL = '/users/login/'
+LOGIN_REDIRECT_URL = '/users/profile/'
 ########## ENDSOCIAL AUTH CONFIGURATION
 
 
@@ -216,6 +220,7 @@ THIRD_PARTY_APPS = (
     'south',           # Database migration tool
     'compressor',      # CSS/JS compiler and compressor
     'rest_framework',  # RESTful framwork tool
+    'social_auth',     # 3rd party authentication methods
 )
 
 # Apps specific for this project go here.
