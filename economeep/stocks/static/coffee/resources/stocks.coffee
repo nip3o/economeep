@@ -1,4 +1,4 @@
-angular.module('economeep', ['ngResource']).factory 'Stock', ($resource) ->
+angular.module('economeep').factory 'Stock', ($resource) ->
     $resource('stocks', {}, query:
                                 method:'GET',
                                 isArray:true);

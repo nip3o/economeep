@@ -1,1 +1,1 @@
-angular.module 'economeep', []
+angular.module('economeep', ['ngResource'])
