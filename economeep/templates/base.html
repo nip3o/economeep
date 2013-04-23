@@ -13,18 +13,16 @@
     <script src="{% static "js/lib/bootstrap-2.3.1.min.js" %}" type="text/javascript" charset="utf-8"></script>
     <script src="{% static "js/lib/angular-1.1.4.min.js" %}" type="text/javascript" charset="utf-8"></script>
     <script src="{% static "js/lib/angular-resource.min.js" %}" type="text/javascript" charset="utf-8"></script>
+    <script src="{% static "js/lib/angular-ui.min.js" %}" type="text/javascript" charset="utf-8"></script>
+    <script src="{% static "js/lib/ui-bootstrap-0.2.0.min.js" %}" type="text/javascript" charset="utf-8"></script>
 
     <script src="{% static "coffee/app.coffee" %}" type="text/coffeescript" charset="utf-8"></script>
-
 
     <script src="{% static "coffee/resources/payments.coffee" %}" type="text/coffeescript" charset="utf-8"></script>
     <script src="{% static "coffee/resources/stocks.coffee" %}" type="text/coffeescript" charset="utf-8"></script>
 
     <script src="{% static "coffee/controllers/payment_list.coffee" %}" type="text/coffeescript" charset="utf-8"></script>
     <script src="{% static "coffee/controllers/stock_list.coffee" %}" type="text/coffeescript" charset="utf-8"></script>
-
-
-
 
     {% block js %}{% endblock js %}
     {% endcompress %}
@@ -49,18 +47,22 @@
             </ul>
         </div>
 
-        <div ng-controller="PaymentListCtrl" ng-show="logged_in">
-            <h2>My payments</h2>
-             <ul>
-                <li ng-repeat="payment in payments">
-                    {{ payment.description }} <b>{{ payment.amount }}</b>
-                </li>
-            </ul>
+        <div ng-controller="PaymentListCtrl">
+            <div ng-show="logged_in">
+                <h2>My payments</h2>
+                 <ul>
+                    <li ng-repeat="payment in payments">
+                        {{ payment.description }} <b>{{ payment.amount }}</b>
+                    </li>
+                </ul>
+            </div>
+
+            <div ng-hide="logged_in">
+                <a href="{% url "socialauth_begin" "facebook" %}" class="btn btn-primary">Login with Facebook</a>
+            </div>
         </div>
 
         {% endverbatim %}
-
-        <a href="{% url "socialauth_begin" "facebook" %}" class="btn btn-primary">Login with Facebook</a>
     </div>
   </body>
 </html>
