@@ -35,9 +35,9 @@
     {% endcompress %}
   </head>
 
-  <body ng-app="economeep" data-csrftoken="{{ csrf_token }}">
+  <body ng-app="economeep" data-csrftoken="{{ csrf_token }}" ng-controller="PaymentListCtrl">
     <div class="container">
-        <div ng-controller="PaymentListCtrl">
+        <div>
             {% verbatim %}
 
             <div ng-show="logged_in">

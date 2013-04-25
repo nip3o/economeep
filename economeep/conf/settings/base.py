@@ -55,7 +55,7 @@ AUTHENTICATION_BACKENDS = (
 )
 
 LOGIN_URL = '/users/login/'
-LOGIN_REDIRECT_URL = '/users/profile/'
+LOGIN_REDIRECT_URL = '/'
 ########## ENDSOCIAL AUTH CONFIGURATION
 
 
