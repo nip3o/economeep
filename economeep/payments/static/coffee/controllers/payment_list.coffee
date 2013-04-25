@@ -1,5 +1,4 @@
 angular.module('economeep').controller 'PaymentListCtrl', ($scope, Payment, Authentication) ->
-
     promise = Authentication.getCurrentUser()
     promise.then(
         (response) ->
@@ -10,3 +9,10 @@ angular.module('economeep').controller 'PaymentListCtrl', ($scope, Payment, Auth
         (error) ->
             $scope.logged_in = false
     )
+
+    $scope.logOut = ->
+        Authentication.logOut().then(
+            (response) ->
+                console.log "Logged out"
+                $scope.logged_in = false
+        )

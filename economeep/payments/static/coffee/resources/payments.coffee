@@ -12,5 +12,10 @@ app.service 'Authentication', ($http, $q) ->
         deferred = $q.defer()
 
         $http.get('users/current/')
-            .success (data) ->
-                deferred.resolve(data)
+             .success (data) -> deferred.resolve(data)
+
+    this.logOut = ->
+        deferred = $q.defer()
+
+        $http.post('users/logout/')
+             .success -> deferred.resolve()

@@ -10,7 +10,9 @@
 
     {% compress js %}
     <script src="{% static "js/lib/jquery-1.9.1.min.js" %}" type="text/javascript" charset="utf-8"></script>
+
     <script src="{% static "js/lib/bootstrap-2.3.1.min.js" %}" type="text/javascript" charset="utf-8"></script>
+
     <script src="{% static "js/lib/angular-1.1.4.min.js" %}" type="text/javascript" charset="utf-8"></script>
     <script src="{% static "js/lib/angular-resource.min.js" %}" type="text/javascript" charset="utf-8"></script>
     <script src="{% static "js/lib/angular-ui.min.js" %}" type="text/javascript" charset="utf-8"></script>
@@ -33,13 +35,14 @@
     {% endcompress %}
   </head>
 
-  <body ng-app="economeep">
+  <body ng-app="economeep" data-csrftoken="{{ csrf_token }}">
     <div class="container">
         <div ng-controller="PaymentListCtrl">
             {% verbatim %}
 
             <div ng-show="logged_in">
-                <h1>Welcome {{ user.first_name }}!</h1>
+                Logged in as {{ user.first_name }} {{ user.last_name }}
+                <a class="btn btn-small" ng-click="logOut()">Log out</a>
 
                 <div ng-show="payments.length">
                     <h2>My payments</h2>
@@ -52,10 +55,6 @@
             </div>
 
             {% endverbatim %}
-
-            <div ng-hide="logged_in">
-                <a href="{% url "socialauth_begin" "facebook" %}" class="btn btn-primary">Login with Facebook</a>
-            </div>
         </div>
 
         <div ng-controller="StockListCtrl">
@@ -70,6 +69,9 @@
             </ul>
         </div>
 
+        <div ng-hide="logged_in">
+            <a href="{% url "socialauth_begin" "facebook" %}" class="btn btn-primary">Login with Facebook</a>
+        </div>
     </div>
   </body>
 </html>
