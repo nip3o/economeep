@@ -1,4 +1,4 @@
 angular.module('economeep').factory 'Stock', ($resource) ->
-    $resource('stocks', {}, query:
+    $resource('stocks/', {}, query:
                                 method:'GET',
                                 isArray:true);

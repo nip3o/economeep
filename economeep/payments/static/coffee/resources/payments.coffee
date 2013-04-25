@@ -4,14 +4,13 @@ app.factory 'Payment', ($resource) ->
     $resource('payments/')
 
 app.factory 'User', ($resource) ->
-    $resource('users/:userId')
+    $resource('users/:userId/')
 
 
 app.service 'Authentication', ($http, $q) ->
     this.getCurrentUser = ->
         deferred = $q.defer()
 
-        $http.get('users/getCurrentUser')
+        $http.get('users/current/')
             .success (data) ->
-                console.log("Success")
-                deferred.resolve("Wieee")
+                deferred.resolve(data)

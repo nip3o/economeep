@@ -35,34 +35,41 @@
 
   <body ng-app="economeep">
     <div class="container">
-        {% verbatim %}
-
-        <div ng-controller="StockListCtrl">
-            <h2>Some stocks</h2>
-             <ul>
-                <li ng-repeat="stock in stocks">
-                    {{ stock.name }}
-                    <p>{{ stock.short_name }}</p>
-                </li>
-            </ul>
-        </div>
-
         <div ng-controller="PaymentListCtrl">
+            {% verbatim %}
+
             <div ng-show="logged_in">
-                <h2>My payments</h2>
-                 <ul>
-                    <li ng-repeat="payment in payments">
-                        {{ payment.description }} <b>{{ payment.amount }}</b>
-                    </li>
-                </ul>
+                <h1>Welcome {{ user.first_name }}!</h1>
+
+                <div ng-show="payments.length">
+                    <h2>My payments</h2>
+                     <ul>
+                        <li ng-repeat="payment in payments">
+                            {{ payment.description }} <b>{{ payment.amount }}</b>
+                        </li>
+                    </ul>
+                </div>
             </div>
+
+            {% endverbatim %}
 
             <div ng-hide="logged_in">
                 <a href="{% url "socialauth_begin" "facebook" %}" class="btn btn-primary">Login with Facebook</a>
             </div>
         </div>
 
-        {% endverbatim %}
+        <div ng-controller="StockListCtrl">
+            <h2>Some stocks</h2>
+             <ul>
+                {% verbatim %}
+                <li ng-repeat="stock in stocks">
+                    {{ stock.name }}
+                    <p>{{ stock.short_name }}</p>
+                </li>
+                {% endverbatim %}
+            </ul>
+        </div>
+
     </div>
   </body>
 </html>
