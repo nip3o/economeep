@@ -24,7 +24,8 @@ angular.module('economeep').controller 'PaymentListCtrl', ($dialog, $scope, $roo
         d.open('addPaymentForm', 'AddPaymentController').then(
             (payment)->
                 if payment
-                    $scope.payments.push(payment))
+                    $scope.payments.push(payment)
+        )
 
 
 angular.module('economeep').controller 'AddPaymentController', ($scope, $rootScope) ->
