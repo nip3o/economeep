@@ -12,5 +12,8 @@ class PaymentsList(generics.ListCreateAPIView):
     serializer_class = PaymentSerializer
     permission_classes = (IsAuthenticated, IsOwner)
 
+    def pre_save(self, payment):
+        payment.user = self.request.user
+
     def get_queryset(self):
         return Payment.objects.filter(user=self.request.user)

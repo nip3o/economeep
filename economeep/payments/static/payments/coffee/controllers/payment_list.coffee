@@ -33,7 +33,7 @@ angular.module('economeep').controller 'AddPaymentController', ($scope, $rootSco
     $scope.payment = new Payment({description: '', amount: ''})
 
     $scope.save = ->
-        $scope.payment.$save()
+        $scope.payment.$save().then((data) -> console.log data)
         $rootScope.dialog.close($scope.payment)
 
     $scope.cancel = -> $rootScope.dialog.close()

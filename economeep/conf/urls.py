@@ -14,7 +14,7 @@ urlpatterns = patterns(
 
     # Global third-party views
     url(r'', include('social_auth.urls')),
-    url(r'^api', include('rest_framework.urls', namespace='rest_framework')),
+    url(r'^api/', include('rest_framework.urls', namespace='rest_framework')),
 
     # Base views
     url(r'^$', TemplateView.as_view(template_name='base.html')),
