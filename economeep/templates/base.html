@@ -90,14 +90,19 @@
                 {{ payment.amount }}
                 <ul class="vertical_form">
                     <li>
-                        <label for="amount">Belopp</label>
+                        <label for="amount">Amount</label>
                         <input name="amount" type="text" ng-model="payment.amount">
+                    </li>
+                    <li>
+                        <label for="description">Description</label>
+                        <input name="description" type="text" ng-model="payment.description">
                     </li>
                 </ul>
             </form>
         </div>
         <div class="modal-footer">
-            <button ng-click="close()" class="btn">Close</button>
+            <button ng-click="save()" class="btn btn-primary">Save</button>
+            <button ng-click="cancel()" class="btn">Cancel</button>
         </div>
     </div>
     </script>

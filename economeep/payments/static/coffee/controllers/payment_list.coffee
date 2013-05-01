@@ -21,10 +21,14 @@ angular.module('economeep').controller 'PaymentListCtrl', ($dialog, $scope, $roo
         item = 3
         d = $dialog.dialog()
         $rootScope.dialog = d;
-        d.open('addPaymentForm', 'AddPaymentController').then(-> console.log "clooosed")
+        d.open('addPaymentForm', 'AddPaymentController').then(
+            (payment)->
+                if payment
+                    $scope.payments.push(payment))
 
 
 angular.module('economeep').controller 'AddPaymentController', ($scope, $rootScope) ->
-    $scope.payment = {amount: 0}
+    $scope.payment = {description: '', amount: ''}
 
-    $scope.close = -> $rootScope.dialog.close()
+    $scope.save = -> $rootScope.dialog.close($scope.payment)
+    $scope.cancel = -> $rootScope.dialog.cancel()
