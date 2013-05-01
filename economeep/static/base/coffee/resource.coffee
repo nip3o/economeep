@@ -2,6 +2,11 @@
 # implemetation has some flaws related to URLs.
 angular.module('economeep').factory 'ecoResource', ($q, $http) ->
     class ecoResource
+        # Copy all attributes from the recieved object onto the new object
+        constructor: (data) ->
+            angular.copy(data, this)
+
+        # Fetch all instances of a resource from API
         @query = ->
             deferred = $q.defer()
 
