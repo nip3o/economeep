@@ -1,4 +1,4 @@
-angular.module('economeep').controller 'PaymentListCtrl', ($scope, Payment, Authentication) ->
+angular.module('economeep').controller 'PaymentListCtrl', ($dialog, $scope, $rootScope, $templateCache, Payment, Authentication) ->
     promise = Authentication.getCurrentUser()
     promise.then(
         (response) ->
@@ -16,3 +16,15 @@ angular.module('economeep').controller 'PaymentListCtrl', ($scope, Payment, Auth
                 console.log "Logged out"
                 $scope.logged_in = false
         )
+
+    $scope.addPayment = ->
+        item = 3
+        d = $dialog.dialog()
+        $rootScope.dialog = d;
+        d.open('addPaymentForm', 'AddPaymentController').then(-> console.log "clooosed")
+
+
+angular.module('economeep').controller 'AddPaymentController', ($scope, $rootScope) ->
+    $scope.payment = {amount: 0}
+
+    $scope.close = -> $rootScope.dialog.close()

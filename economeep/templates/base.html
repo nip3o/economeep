@@ -37,41 +37,70 @@
 
   <body ng-app="economeep" data-csrftoken="{{ csrf_token }}" ng-controller="PaymentListCtrl">
     <div class="container">
-        <div>
-            {% verbatim %}
+        {% verbatim %}
 
-            <div ng-show="logged_in">
-                Logged in as {{ user.first_name }} {{ user.last_name }}
-                <a class="btn btn-small" ng-click="logOut()">Log out</a>
+        <div ng-show="logged_in">
+            Logged in as {{ user.first_name }} {{ user.last_name }}
+            <button class="btn btn-small" ng-click="logOut()">Log out</button>
 
-                <div ng-show="payments.length">
-                    <h2>My payments</h2>
-                     <ul>
-                        <li ng-repeat="payment in payments">
-                            {{ payment.description }} <b>{{ payment.amount }}</b>
-                        </li>
-                    </ul>
-                </div>
+            <div>
+                <h2>10 latest payments</h2>
+
+                 <ul ng-show="payments.length">
+                    <li ng-repeat="payment in payments">
+                        {{ payment.description }} <b>{{ payment.amount }}</b>
+                    </li>
+                </ul>
+
+                <button class="btn btn-success" ng-click="addPayment()">
+                    Add new payment
+                </button>
+
+                {{ payment_form }}
             </div>
-
-            {% endverbatim %}
         </div>
+
 
         <div ng-controller="StockListCtrl">
             <h2>Some stocks</h2>
              <ul>
-                {% verbatim %}
                 <li ng-repeat="stock in stocks">
                     {{ stock.name }}
                     <p>{{ stock.short_name }}</p>
                 </li>
-                {% endverbatim %}
             </ul>
         </div>
+
+        {% endverbatim %}
 
         <div ng-hide="logged_in">
             <a href="{% url "socialauth_begin" "facebook" %}" class="btn btn-primary">Login with Facebook</a>
         </div>
     </div>
+
+    {% verbatim %}
+
+    <script type="text/ng-template" id="addPaymentForm">
+    <div ng-controller="AddPaymentController">
+        <div class="modal-header">
+            <h3>New payment</h3>
+        </div>
+        <div class="modal-body">
+            <form>
+                {{ payment.amount }}
+                <ul class="vertical_form">
+                    <li>
+                        <label for="amount">Belopp</label>
+                        <input name="amount" type="text" ng-model="payment.amount">
+                    </li>
+                </ul>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button ng-click="close()" class="btn">Close</button>
+        </div>
+    </div>
+    </script>
+    {% endverbatim %}
   </body>
 </html>
