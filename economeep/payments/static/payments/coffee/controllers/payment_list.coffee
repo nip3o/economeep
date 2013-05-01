@@ -1,9 +1,10 @@
-angular.module('economeep').controller 'PaymentListCtrl', ($dialog, $scope, $rootScope, $templateCache, Payment, Authentication) ->
-    promise = Authentication.getCurrentUser()
-    promise.then(
-        (response) ->
+angular.module('economeep').controller 'PaymentListCtrl',
+($dialog, $scope, $rootScope, $templateCache, Payment, User) ->
+
+    User.getCurrent().then(
+        (user) ->
             $scope.logged_in = true
-            $scope.user = response.data
+            $scope.user = user
 
             Payment.query().then((payments) -> $scope.payments = payments)
         ,
@@ -12,7 +13,7 @@ angular.module('economeep').controller 'PaymentListCtrl', ($dialog, $scope, $roo
     )
 
     $scope.logOut = ->
-        Authentication.logOut().then(
+        $scope.user.logOut().then(
             (response) ->
                 console.log "Logged out"
                 $scope.logged_in = false
