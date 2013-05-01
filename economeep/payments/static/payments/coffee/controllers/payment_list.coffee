@@ -18,9 +18,9 @@ angular.module('economeep').controller 'PaymentListCtrl', ($dialog, $scope, $roo
         )
 
     $scope.addPayment = ->
-        item = 3
         d = $dialog.dialog()
         $rootScope.dialog = d;
+
         d.open('addPaymentForm', 'AddPaymentController').then(
             (payment)->
                 if payment
@@ -28,8 +28,11 @@ angular.module('economeep').controller 'PaymentListCtrl', ($dialog, $scope, $roo
         )
 
 
-angular.module('economeep').controller 'AddPaymentController', ($scope, $rootScope) ->
-    $scope.payment = {description: '', amount: ''}
+angular.module('economeep').controller 'AddPaymentController', ($scope, $rootScope, Payment) ->
+    $scope.payment = new Payment({description: '', amount: ''})
 
-    $scope.save = -> $rootScope.dialog.close($scope.payment)
-    $scope.cancel = -> $rootScope.dialog.cancel()
+    $scope.save = ->
+        $scope.payment.$save()
+        $rootScope.dialog.close($scope.payment)
+
+    $scope.cancel = -> $rootScope.dialog.close()

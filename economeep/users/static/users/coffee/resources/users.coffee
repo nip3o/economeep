@@ -1,8 +1,5 @@
 app = angular.module('economeep')
 
-app.factory 'Payment', ($resource) ->
-    $resource('payments/')
-
 app.factory 'User', ($resource) ->
     $resource('users/:userId/')
 
