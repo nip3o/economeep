@@ -4,7 +4,8 @@ angular.module('economeep').controller 'PaymentListCtrl', ($dialog, $scope, $roo
         (response) ->
             $scope.logged_in = true
             $scope.user = response.data
-            $scope.payments = Payment.query()
+
+            Payment.query().then((payments) -> $scope.payments = payments)
         ,
         (error) ->
             $scope.logged_in = false

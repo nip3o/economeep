@@ -6,6 +6,14 @@ angular.module('economeep').factory 'ecoResource', ($q, $http) ->
         constructor: (data) ->
             angular.copy(data, this)
 
+
+        $save: ->
+            deferred = $q.defer()
+
+            $http.post(@url)
+                .success (data) -> deferred.resolve(this)
+                .error (data) -> deferred.reject(data)
+
         # Fetch all instances of a resource from API
         @query = ->
             deferred = $q.defer()
@@ -17,5 +25,8 @@ angular.module('economeep').factory 'ecoResource', ($q, $http) ->
                         result.push(new this(item))
 
                     deferred.resolve(result)
+
+                .error (data) =>
+                    deferred.reject(data)
 
             return deferred.promise
