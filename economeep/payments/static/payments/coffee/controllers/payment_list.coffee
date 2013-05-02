@@ -1,20 +1,21 @@
 angular.module('economeep').controller 'PaymentListCtrl',
-($dialog, $scope, $rootScope, $templateCache, Payment, User, $http) ->
+($dialog, $scope, $rootScope, $templateCache, Category, Payment, User, $http) ->
     User.getCurrent().then(
         (user) ->
             $scope.logged_in = true
             $scope.user = user
 
-            Payment.query().then((payments) -> $scope.payments = payments)
+            Payment.query().then (payments) ->
+                $scope.payments = payments
+
+            Category.query().then (categories) ->
+                $scope.categories = categories
+                $scope.paymentsChartData = ([c.name, 1] for c in categories)
         ,
         (error) ->
             $scope.logged_in = false
     )
 
-    $scope.paymentsChartData =  [
-        ['Jane', 1],
-        ['John', 5]
-    ]
 
     $scope.addData = ->
         $scope.paymentsChartData.push(['Niclas', 3])
@@ -31,7 +32,10 @@ angular.module('economeep').controller 'PaymentListCtrl',
 
     $scope.addPayment = ->
         d = $dialog.dialog()
-        $rootScope.dialog = d;
+
+        # TODO
+        $rootScope.dialog = d
+        $rootScope.categories = $scope.categories
 
         d.open('addPaymentForm', 'AddPaymentController').then(
             (payment)->

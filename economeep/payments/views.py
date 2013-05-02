@@ -3,8 +3,8 @@ from rest_framework.permissions import IsAuthenticated
 
 from utils.permissions import IsOwner
 
-from .models import Payment
-from .serializers import PaymentSerializer
+from .models import Category, Payment
+from .serializers import CategorySerializer, PaymentSerializer
 
 
 class PaymentsList(generics.ListCreateAPIView):
@@ -17,3 +17,8 @@ class PaymentsList(generics.ListCreateAPIView):
 
     def get_queryset(self):
         return Payment.objects.filter(user=self.request.user)
+
+
+class CategoryList(generics.ListCreateAPIView):
+    model = Category
+    serializer_class = CategorySerializer

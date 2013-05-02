@@ -22,6 +22,7 @@
 
     <script src="{% static "users/coffee/resources/users.coffee" %}" type="text/coffeescript" charset="utf-8"></script>
     <script src="{% static "payments/coffee/resources/payments.coffee" %}" type="text/coffeescript" charset="utf-8"></script>
+    <script src="{% static "payments/coffee/resources/categories.coffee" %}" type="text/coffeescript" charset="utf-8"></script>
     <script src="{% static "stocks/coffee/resources/stocks.coffee" %}" type="text/coffeescript" charset="utf-8"></script>
 
     <script src="{% static "payments/coffee/controllers/payment_list.coffee" %}" type="text/coffeescript" charset="utf-8"></script>
@@ -44,7 +45,7 @@
             Logged in as {{ user.first_name }} {{ user.last_name }}
             <button class="btn btn-small" ng-click="logOut()">Log out</button>
 
-            <piechart heading="Fruits" name="Fruits eaten today" data='{{ paymentsChartData }}'></piechart>
+            <piechart heading="Categories" name="Total cost" data='{{ paymentsChartData }}'></piechart>
 
             <div>
                 <h2>10 latest payments</h2>

@@ -4,6 +4,7 @@ from django.views.generic import TemplateView
 
 from rest_framework.urlpatterns import format_suffix_patterns
 
+from payments.views import CategoryList
 
 # Set up internal URLs for admin. Must be done before patterns are set up.
 admin.autodiscover()
@@ -26,6 +27,8 @@ urlpatterns = patterns(
     url(r'^payments/', include('payments.urls')),
     url(r'^stocks/', include('stocks.urls')),
     url(r'^users/', include('users.urls')),
+
+    url(r'^categories/', CategoryList.as_view()),
 )
 
 # Add support for document extension suffixes (such as .json, .yml) in API
