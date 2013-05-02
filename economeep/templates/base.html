@@ -12,7 +12,6 @@
     <script src="{% static "base/js/lib/jquery-1.9.1.min.js" %}" type="text/javascript" charset="utf-8"></script>
     <script src="{% static "base/js/lib/bootstrap-2.3.1.min.js" %}" type="text/javascript" charset="utf-8"></script>
     <script src="{% static "base/js/lib/angular-1.1.4.min.js" %}" type="text/javascript" charset="utf-8"></script>
-    <script src="{% static "base/js/lib/angular-resource.min.js" %}" type="text/javascript" charset="utf-8"></script>
     <script src="{% static "base/js/lib/angular-ui.min.js" %}" type="text/javascript" charset="utf-8"></script>
     <script src="{% static "base/js/lib/ui-bootstrap-0.2.0.min.js" %}" type="text/javascript" charset="utf-8"></script>
     <script src="{% static "base/js/lib/highcharts-3.0.1.min.js" %}" type="text/javascript" charset="utf-8"></script>
@@ -27,7 +26,6 @@
 
     <script src="{% static "payments/coffee/controllers/payment_list.coffee" %}" type="text/coffeescript" charset="utf-8"></script>
     <script src="{% static "stocks/coffee/controllers/stock_list.coffee" %}" type="text/coffeescript" charset="utf-8"></script>
-
 
     {% block js %}{% endblock js %}
     {% endcompress %}
@@ -46,7 +44,7 @@
             Logged in as {{ user.first_name }} {{ user.last_name }}
             <button class="btn btn-small" ng-click="logOut()">Log out</button>
 
-            <highchart type="bar" value='{{ paymentsChartData }}'></highchart>
+            <highchart heading="Fruits" type="bar" value='{{ paymentsChartData }}'></highchart>
 
             <div>
                 <h2>10 latest payments</h2>

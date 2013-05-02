@@ -12,13 +12,6 @@ angular.module('economeep').controller 'PaymentListCtrl',
     )
 
     $scope.paymentsChartData = {
-        chart: {
-            type: 'bar'
-            renderTo: $('#chart')
-        },
-        title: {
-            text: 'Fruit Consumption'
-        },
         xAxis: {
             categories: ['Apples', 'Bananas', 'Oranges']
         },
