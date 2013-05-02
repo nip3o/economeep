@@ -1,6 +1,5 @@
 angular.module('economeep').controller 'PaymentListCtrl',
 ($dialog, $scope, $rootScope, $templateCache, Payment, User) ->
-
     User.getCurrent().then(
         (user) ->
             $scope.logged_in = true

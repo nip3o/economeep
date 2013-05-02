@@ -18,6 +18,7 @@
 
     <script src="{% static "base/coffee/app.coffee" %}" type="text/coffeescript" charset="utf-8"></script>
     <script src="{% static "base/coffee/resource.coffee" %}" type="text/coffeescript" charset="utf-8"></script>
+    <script src="{% static "base/coffee/directives.coffee" %}" type="text/coffeescript" charset="utf-8"></script>
 
     <script src="{% static "users/coffee/resources/users.coffee" %}" type="text/coffeescript" charset="utf-8"></script>
     <script src="{% static "payments/coffee/resources/payments.coffee" %}" type="text/coffeescript" charset="utf-8"></script>
@@ -80,7 +81,7 @@
     </div>
 
     <script type="text/ng-template" id="addPaymentForm">
-    {% include "ng-templates/addPaymentForm.html" %}
+{% include "ng-templates/addPaymentForm.html" %}
     </script>
 
   </body>
