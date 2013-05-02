@@ -1,7 +1,8 @@
 from django.contrib.auth import logout as auth_logout
 from django.contrib.auth.views import login as auth_login
+from django.contrib.auth.models import User
 
-from rest_framework import status
+from rest_framework import status, generics
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
@@ -27,3 +28,8 @@ def current_user(request):
 
     serializer = UserSerializer(user)
     return Response(serializer.data)
+
+
+class UserDetails(generics.RetrieveAPIView):
+    model = User
+    serializer_class = UserSerializer

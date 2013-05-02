@@ -22,3 +22,8 @@ class PaymentsList(generics.ListCreateAPIView):
 class CategoryList(generics.ListCreateAPIView):
     model = Category
     serializer_class = CategorySerializer
+
+
+class CategoryDetails(generics.RetrieveAPIView):
+    model = Category
+    serializer_class = CategorySerializer

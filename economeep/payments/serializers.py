@@ -3,15 +3,17 @@ from rest_framework import serializers
 from .models import Category, Payment
 
 
-class CategorySerializer(serializers.ModelSerializer):
+class CategorySerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Category
-        fields = ('name', 'id')
+        fields = ('url', 'name',)
+
+    url = serializers.HyperlinkedIdentityField()
 
 
-class PaymentSerializer(serializers.ModelSerializer):
+class PaymentSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Payment
         fields = ('date', 'amount', 'description', 'user', 'category')
 
-    user = serializers.Field(source='user.username')
+    user = serializers.Field()
