@@ -13,33 +13,38 @@ angular.module("economeep").directive 'textinput', ($templateCache) ->
 
 # Highcharts directive
 # Inspired by https://github.com/rootux/angular-highcharts-directive/
-angular.module("economeep").directive 'highchart', ->
+angular.module("economeep").directive 'piechart', ->
     restrict: "E"
     template: "<div></div>"
 
     link: (scope, element, attrs) ->
-        defaults = {
+        settings = {
             chart:
                 renderTo: element[0]
-                type: attrs.type ? null
-                height: attrs.height ? null
-                width: attrs.width ? null
+                type: 'pie'
+                height: attrs.height
+                width: attrs.width
 
             title:
-                text: attrs.heading ? null
+                text: attrs.heading
+
+            series: [
+                name: attrs.name
+                data: JSON.parse(attrs.data)
+            ]
         }
-        settings = {}
-        $.extend(true, settings, defaults, JSON.parse(attrs.value))
         chart = new Highcharts.Chart(settings)
 
-        scope.$watch(->
-                        attrs.value
-                    , (newValue, oldValue) ->
-                        if newValue != oldValue
-                            newValue = JSON.parse(newValue)
+        scope.$watch(
+            ->
+                attrs.data
+            , (newValue, oldValue) ->
+                if newValue != oldValue
+                    newData = JSON.parse(newValue)
 
-                            for serie, i in chart.series
-                                serie.setData(newValue.series[i].data, false)
-
-                            chart.redraw()
+                    if newData.length != chart.series[0].data.length
+                        chart.series[0].setData(newData, true)
+                    else
+                        for data, i in chart.series[0].data
+                            data.update(newData[i])
         )

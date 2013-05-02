@@ -44,7 +44,7 @@
             Logged in as {{ user.first_name }} {{ user.last_name }}
             <button class="btn btn-small" ng-click="logOut()">Log out</button>
 
-            <highchart heading="Fruits" type="bar" value='{{ paymentsChartData }}'></highchart>
+            <piechart heading="Fruits" name="Fruits eaten today" data='{{ paymentsChartData }}'></piechart>
 
             <div>
                 <h2>10 latest payments</h2>
@@ -57,6 +57,14 @@
 
                 <button class="btn btn-success" ng-click="addPayment()">
                     Add new payment
+                </button>
+
+                <button class="btn" ng-click="addData()">
+                    Test adding data
+                </button>
+
+                <button class="btn" ng-click="updateData()">
+                    Test updating data
                 </button>
 
                 {{ payment_form }}

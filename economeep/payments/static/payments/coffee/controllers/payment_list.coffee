@@ -11,23 +11,16 @@ angular.module('economeep').controller 'PaymentListCtrl',
             $scope.logged_in = false
     )
 
-    $scope.paymentsChartData = {
-        xAxis: {
-            categories: ['Apples', 'Bananas', 'Oranges']
-        },
-        yAxis: {
-            title: {
-                text: 'Fruit eaten'
-            }
-        },
-        series: [{
-            name: 'Jane',
-            data: [1, 0, 4]
-        }, {
-            name: 'John',
-            data: [5, 7, 3]
-        }],
-    }
+    $scope.paymentsChartData =  [
+        ['Jane', 1],
+        ['John', 5]
+    ]
+
+    $scope.addData = ->
+        $scope.paymentsChartData.push(['Niclas', 3])
+
+    $scope.updateData = ->
+        $scope.paymentsChartData[0][1] += 1
 
     $scope.logOut = ->
         $scope.user.logOut().then(
