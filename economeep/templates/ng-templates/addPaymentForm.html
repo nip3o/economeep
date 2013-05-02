@@ -3,22 +3,25 @@
         <h3>New payment</h3>
     </div>
     <div class="modal-body">
-        <form>
-            {{ payment.amount }}
-            <ul class="vertical_form">
-                <li>
-                    <label for="amount">Amount</label>
-                    <input name="amount" type="text" ng-model="payment.amount">
-                </li>
-                <li>
-                    <label for="description">Description</label>
-                    <input name="description" type="text" ng-model="payment.description">
-                </li>
-                <li>
-                    <label for="date">Date</label>
-                    <input name="date" type="text" ng-model="payment.date">
-                </li>
-            </ul>
+        <form class="form-horizontal">
+            <div class="control-group">
+                <label class="control-label" for="description">Description</label>
+                <div class="controls">
+                    <input id="description" type="text" ng-model="payment.description">
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="amount">Amount</label>
+                <div class="controls">
+                    <input id="amount" type="text" ng-model="payment.amount">
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="date">Date</label>
+                <div class="controls">
+                    <input id="date" type="text" ng-model="payment.date">
+                </div>
+            </div>
         </form>
     </div>
     <div class="modal-footer">
