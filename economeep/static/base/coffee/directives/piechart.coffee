@@ -1,22 +1,8 @@
-angular.module("economeep").directive 'textinput', ($templateCache) ->
-    restrict: "E"
-    compile: (element, attrs) ->
-        template = """
-        <div class="control-group">
-            <label class="control-label" for="#{attrs.id}">#{attrs.label}</label>
-            <div class="controls">
-                <input id="#{attrs.id}" type="text" ng-model="#{attrs.model}">
-            </div>
-        </div>
-        """
-        element.html(template)
-
-# Highcharts directive
+# Highcharts directive for piecharts
 # Inspired by https://github.com/rootux/angular-highcharts-directive/
 angular.module("economeep").directive 'piechart', ->
     restrict: "E"
     template: "<div></div>"
-
     link: (scope, element, attrs) ->
         chart = null
 

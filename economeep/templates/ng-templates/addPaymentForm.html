@@ -5,9 +5,7 @@
     </div>
     <div class="modal-body">
         <form class="form-horizontal">
-            <select ng-model="payment.category">
-                <option ng-repeat="category in categories" value="{{ category.id }}">{{ category.name }}</option>
-            </select>
+            <selectable id="category" label="Category" model="payment.category" choices="categories"></selectable>
             <textinput id="description" label="Description" model="payment.description"></textinput>
             <textinput id="amount" label="Amount" model="payment.amount"></textinput>
             <textinput id="date" label="Date" model="payment.date"></textinput>
