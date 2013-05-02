@@ -15,6 +15,7 @@
     <script src="{% static "base/js/lib/angular-resource.min.js" %}" type="text/javascript" charset="utf-8"></script>
     <script src="{% static "base/js/lib/angular-ui.min.js" %}" type="text/javascript" charset="utf-8"></script>
     <script src="{% static "base/js/lib/ui-bootstrap-0.2.0.min.js" %}" type="text/javascript" charset="utf-8"></script>
+    <script src="{% static "base/js/lib/highcharts-3.0.1.min.js" %}" type="text/javascript" charset="utf-8"></script>
 
     <script src="{% static "base/coffee/app.coffee" %}" type="text/coffeescript" charset="utf-8"></script>
     <script src="{% static "base/coffee/resource.coffee" %}" type="text/coffeescript" charset="utf-8"></script>
@@ -44,6 +45,8 @@
         <div ng-show="logged_in">
             Logged in as {{ user.first_name }} {{ user.last_name }}
             <button class="btn btn-small" ng-click="logOut()">Log out</button>
+
+            <highchart type="bar" value='{{ paymentsChartData }}'></highchart>
 
             <div>
                 <h2>10 latest payments</h2>

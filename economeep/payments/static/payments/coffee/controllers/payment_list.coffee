@@ -1,5 +1,5 @@
 angular.module('economeep').controller 'PaymentListCtrl',
-($dialog, $scope, $rootScope, $templateCache, Payment, User) ->
+($dialog, $scope, $rootScope, $templateCache, Payment, User, $http) ->
     User.getCurrent().then(
         (user) ->
             $scope.logged_in = true
@@ -10,6 +10,31 @@ angular.module('economeep').controller 'PaymentListCtrl',
         (error) ->
             $scope.logged_in = false
     )
+
+    $scope.paymentsChartData = {
+        chart: {
+            type: 'bar'
+            renderTo: $('#chart')
+        },
+        title: {
+            text: 'Fruit Consumption'
+        },
+        xAxis: {
+            categories: ['Apples', 'Bananas', 'Oranges']
+        },
+        yAxis: {
+            title: {
+                text: 'Fruit eaten'
+            }
+        },
+        series: [{
+            name: 'Jane',
+            data: [1, 0, 4]
+        }, {
+            name: 'John',
+            data: [5, 7, 3]
+        }],
+    }
 
     $scope.logOut = ->
         $scope.user.logOut().then(

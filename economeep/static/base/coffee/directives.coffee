@@ -10,3 +10,21 @@ angular.module("economeep").directive 'textinput', ($templateCache) ->
         </div>
         """
         element.html(template)
+
+
+angular.module("economeep").directive 'highchart', ->
+    restrict: "E"
+    template: "<div>Helluu</div>"
+
+    link: (scope, element, attrs) ->
+        defaults = {
+            chart:
+                type: attrs.type ? null
+                height: attrs.height ? null
+                width: attrs.width ? null
+        }
+
+        settings = {}
+        $.extend(true, settings, defaults, JSON.parse(attrs.value))
+
+        element.highcharts(settings)
