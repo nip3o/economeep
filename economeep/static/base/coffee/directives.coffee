@@ -44,7 +44,7 @@ angular.module("economeep").directive 'piechart', ->
 
                     if newData.length != chart.series[0].data.length
                         chart.series[0].setData(newData, true)
-                    else
-                        for data, i in chart.series[0].data
-                            data.update(newData[i])
+
+                    for data, i in chart.series[0].data
+                        data.update(newData[i])
         )
