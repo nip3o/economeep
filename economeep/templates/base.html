@@ -67,6 +67,10 @@
                     Add new payment
                 </button>
 
+                <button class="btn" ng-click="addCategory()">
+                    Add new category
+                </button>
+
                 {{ payment_form }}
             </div>
         </div>
@@ -90,6 +94,10 @@
 
     <script type="text/ng-template" id="addPaymentForm">
 {% include "ng-templates/addPaymentForm.html" %}
+    </script>
+
+    <script type="text/ng-template" id="addCategoryForm">
+{% include "ng-templates/addCategoryForm.html" %}
     </script>
 
   </body>

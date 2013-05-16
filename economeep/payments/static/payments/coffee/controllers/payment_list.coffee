@@ -5,8 +5,12 @@ angular.module('economeep').controller 'PaymentListCtrl',
     # Transform the categories into Highcharts-readable
     updateChartData = (newCategories, oldCategories) ->
         if newCategories != oldCategories
-            $scope.paymentsChartData = (
-                [c.name, parseFloat(c.payment_sum, 10)] for c in newCategories)
+            chartData = []
+            for c in newCategories
+                paymentSum = parseFloat(c.payment_sum, 10)
+                if paymentSum > 0
+                    chartData.push([c.name, paymentSum])
+            $scope.paymentsChartData = chartData
 
     # Update chart data when categories change
     $scope.$watch('categories', updateChartData, true)
@@ -47,6 +51,16 @@ angular.module('economeep').controller 'PaymentListCtrl',
                         $scope.payments.push(payment)
         )
 
+    $scope.addCategory = ->
+        d = $dialog.dialog()
+
+        $rootScope.dialog = d
+
+        d.open('addCategoryForm', 'AddCategoryController').then(
+            (category)->
+                $scope.categories.push(category)
+        )
+
 
 angular.module('economeep').controller 'AddPaymentController', ($scope, $rootScope, Payment) ->
     $scope.payment = new Payment({description: '', amount: ''})
@@ -55,11 +69,20 @@ angular.module('economeep').controller 'AddPaymentController', ($scope, $rootSco
         $scope.payment.$save().then(
             (payment)->
                 $rootScope.dialog.close(payment)
-            ,
-            (error) ->
 
         )
 
+    $scope.cancel = -> $rootScope.dialog.close()
 
+
+
+angular.module('economeep').controller 'AddCategoryController', ($scope, $rootScope, Category) ->
+    $scope.category = new Category({name: ''})
+
+    $scope.save = ->
+        $scope.category.$save().then(
+            (category)->
+                $rootScope.dialog.close(category)
+        )
 
     $scope.cancel = -> $rootScope.dialog.close()

@@ -1,0 +1,16 @@
+{% verbatim %}
+<div ng-controller="AddCategoryController">
+    <div class="modal-header">
+        <h3>New category</h3>
+    </div>
+    <div class="modal-body">
+        <form class="form-horizontal" name="form" novalidate>
+            <textinput id="name" label="Name" model="category.name" options="required"></textinput>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button ng-click="save()" class="btn" ng-disabled="form.$invalid" ng-class="{'btn-primary': form.$valid}">Save</button>
+        <button ng-click="cancel()" class="btn">Cancel</button>
+    </div>
+</div>
+{% endverbatim %}

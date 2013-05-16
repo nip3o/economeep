@@ -19,6 +19,9 @@ class CategoryQuerySet(models.query.QuerySet):
     def with_payment_sum(self):
         return self.annotate(payment_sum=Sum('payment__amount'))
 
+    def non_empty(self):
+        return self.filter(payment_sum__gt=0)
+
     def for_month(self, year, month):
         return self.filter(payment__date__year=year,
                            payment__date__month=month)
@@ -36,6 +39,9 @@ class Category(models.Model):
 
     # Create a chainable manager from the CategoryQuerySet declared above
     objects = PassThroughManager.for_queryset_class(CategoryQuerySet)()
+
+    def get_payment_sum(self):
+        return self.payment_set.aggregate(s=Sum('amount'))['s']
 
 
 class Payment(models.Model):

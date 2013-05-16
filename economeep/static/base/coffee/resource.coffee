@@ -12,6 +12,7 @@ angular.module('economeep').factory 'ecoResource', ($q, $http) ->
 
             $http.post(@constructor.url, this)
                 .success (data) =>
+                    this.url = data.url
                     deferred.resolve(this)
                 .error (data) =>
                     deferred.reject(data)
