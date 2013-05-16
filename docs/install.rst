@@ -58,21 +58,6 @@ package manager). Run the following from the project root directory.
     # npm install -g
 
 
-Database configuration
-=======================
-
-This assumes that you have a working PostgreSQL database set-up
-(http://www.postgresql.org/). By default, the database is called ``economeep``,
-but this can be configured using the ``DB_NAME`` environment variable.
-
-The database connection settings is configured using environment variables.
-Add your credentials to your ``$VIRTUAL_ENV/bin/postactivate`` file
-::
-
-    export DB_USER=my_username
-    export DB_PASSWORD=my_secr3t_p4ssw0rd
-
-
 Environment configuration
 ==========================
 To avoid some teadiuos writing, do the following:
@@ -84,6 +69,40 @@ To avoid some teadiuos writing, do the following:
     $ echo "alias dj='django-admin.py'" >> ~/.bashrc
     $ echo "export DJANGO_SETTINGS_MODULE=conf.settings.development" >> $VIRTUAL_ENV/bin/postactivate
 
+
+Database configuration
+=======================
+
+This assumes that you have a working PostgreSQL database set-up
+(http://www.postgresql.org/). By default, the database is called ``economeep``,
+but this can be configured using the ``DB_NAME`` environment variable. Assuming that you have
+a working postgres-installation, you can log into its superuser account and create a new database
+for economeep as below
+::
+
+    $ sudo su postgres
+    # psql
+    > create database economeep;
+    > \q
+    # exit
+    
+
+The database connection settings is configured using environment variables.
+Add your credentials to your ``$VIRTUAL_ENV/bin/postactivate`` file in the same way as above.
+::
+
+    export DB_USER=my_username
+    export DB_PASSWORD=my_secr3t_p4ssw0rd
+    
+    
+Facebook authentication
+=======================
+
+This app uses Facebook for authentication. Threrfore, APP_ID and SECRET settings for Facebook must be defined.
+::
+
+    export FACEBOOK_APP_ID=my_app_id
+    export FACEBOOK_API_SECRET=my_secret
 
 Getting started
 ================
