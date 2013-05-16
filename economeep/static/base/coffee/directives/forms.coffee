@@ -21,7 +21,7 @@ app.directive 'selectable', ->
         <div class="control-group">
             <label class="control-label" for="#{attrs.id}">#{attrs.label}</label>
             <div class="controls">
-                <select ng-model="#{attrs.model}">
+                <select ng-model="#{attrs.model}" #{attrs.options}>
                     <option ng-repeat="item in #{attrs.choices}" value="{{ item.url }}">{{ item.name }}</option>
                 </select>
             </div>
