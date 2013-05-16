@@ -33,7 +33,8 @@
 
     {% compress css %}
     <link href="{% static "base/css/bootstrap.min.css" %}" rel="stylesheet" type="text/css">
-    <link href="{% static "base/css/bootstrap-responsive.min.css" %}" rel="stylesheet" type="text/css">
+    <link href="{% static "base/css/bootstrap.min.css" %}" rel="stylesheet" type="text/css">
+    <link href="{% static "base/css/project.css" %}" rel="stylesheet" type="text/css">
     {% endcompress %}
   </head>
 
@@ -45,23 +46,21 @@
             Logged in as {{ user.first_name }} {{ user.last_name }}
             <button class="btn btn-small" ng-click="logOut()">Log out</button>
 
-            <piechart heading="Categories" name="Total cost" data='{{ paymentsChartData }}'></piechart>
+            <piechart name="Total cost" data='{{ paymentsChartData }}'></piechart>
 
             <div>
                 <h2>10 latest payments</h2>
 
-                 <ul ng-show="payments.length">
-                    <li ng-repeat="payment in payments">
-                        {{ payment.description }} <b>{{ payment.amount }}</b>
-                    </li>
-                </ul>
+                 <table ng-show="payments.length" class="payments table table-striped table-condensed">
+                    <tr ng-repeat="payment in payments">
+                        <td>{{ payment.date }}</td>
+                        <td>{{ payment.description }}</td>
+                        <td class="currency">{{ payment.amount }} kr</td>
+                    </tr>
+                </table>
 
                 <button class="btn btn-success" ng-click="addPayment()">
                     Add new payment
-                </button>
-
-                <button class="btn" ng-click="addData()">
-                    Test adding data
                 </button>
 
                 {{ payment_form }}

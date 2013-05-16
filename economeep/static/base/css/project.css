@@ -1,1 +1,7 @@
-/*! project specific CSS goes here. */
+table tr .currency {
+    text-align: right;
+}
+
+table.payments {
+    max-width: 500px;
+}
