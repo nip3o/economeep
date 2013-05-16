@@ -6,9 +6,10 @@ from .models import Category, Payment
 class CategorySerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Category
-        fields = ('url', 'name',)
+        fields = ('url', 'name', 'payment_sum')
 
     url = serializers.HyperlinkedIdentityField()
+    payment_sum = serializers.DecimalField(read_only=True, source='payment_sum')
 
 
 class PaymentSerializer(serializers.HyperlinkedModelSerializer):

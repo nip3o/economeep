@@ -23,6 +23,9 @@ class CategoryList(generics.ListCreateAPIView):
     model = Category
     serializer_class = CategorySerializer
 
+    def get_queryset(self):
+        return Category.objects.with_payment_sum()
+
 
 class CategoryDetails(generics.RetrieveAPIView):
     model = Category

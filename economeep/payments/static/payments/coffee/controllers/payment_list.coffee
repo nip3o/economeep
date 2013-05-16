@@ -10,7 +10,8 @@ angular.module('economeep').controller 'PaymentListCtrl',
 
             Category.query().then (categories) ->
                 $scope.categories = categories
-                $scope.paymentsChartData = ([c.name, 1] for c in categories)
+                $scope.paymentsChartData = (
+                    [c.name, parseFloat(c.payment_sum, 10)] for c in categories)
         ,
         (error) ->
             $scope.logged_in = false
