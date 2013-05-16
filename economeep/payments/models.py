@@ -48,7 +48,7 @@ class Payment(models.Model):
 
     date = models.DateField(_('date'))
     amount = models.DecimalField(_('amount'), decimal_places=2, max_digits=12)
-    description = models.TextField(_('description'))
+    description = models.TextField(_('description'), blank=True)
 
     category = models.ForeignKey(Category)
     user = models.ForeignKey(User)

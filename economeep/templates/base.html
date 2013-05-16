@@ -15,6 +15,8 @@
     <script src="{% static "base/js/lib/angular-ui.min.js" %}" type="text/javascript" charset="utf-8"></script>
     <script src="{% static "base/js/lib/ui-bootstrap-0.2.0.min.js" %}" type="text/javascript" charset="utf-8"></script>
     <script src="{% static "base/js/lib/highcharts-3.0.1.min.js" %}" type="text/javascript" charset="utf-8"></script>
+    <script src="{% static "base/js/lib/bootstrap-datepicker.js" %}" type="text/javascript" charset="utf-8"></script>
+
 
     <script src="{% static "base/coffee/app.coffee" %}" type="text/coffeescript" charset="utf-8"></script>
     <script src="{% static "base/coffee/resource.coffee" %}" type="text/coffeescript" charset="utf-8"></script>
@@ -32,8 +34,10 @@
     {% endcompress %}
 
     {% compress css %}
-    <link href="{% static "base/css/bootstrap.min.css" %}" rel="stylesheet" type="text/css">
-    <link href="{% static "base/css/bootstrap.min.css" %}" rel="stylesheet" type="text/css">
+    <link href="{% static "base/css/lib/bootstrap.min.css" %}" rel="stylesheet" type="text/css">
+    <link href="{% static "base/css/lib/bootstrap.min.css" %}" rel="stylesheet" type="text/css">
+    <link href="{% static "base/css/lib/datepicker.css" %}" rel="stylesheet" type="text/css">
+
     <link href="{% static "base/css/project.css" %}" rel="stylesheet" type="text/css">
     {% endcompress %}
   </head>
@@ -67,6 +71,7 @@
             </div>
         </div>
 
+<textinput datepicker label="Date" model="payment.date" options="required"></textinput>
 
         <div ng-controller="StockListCtrl">
             <h2>Some stocks</h2>

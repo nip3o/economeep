@@ -5,3 +5,7 @@ table tr .currency {
 table.payments {
     max-width: 500px;
 }
+
+input.ng-invalid.ng-dirty {
+    border-color: #E9322D;
+}
