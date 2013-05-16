@@ -9,7 +9,7 @@ class CategorySerializer(serializers.HyperlinkedModelSerializer):
         fields = ('url', 'name', 'payment_sum')
 
     url = serializers.HyperlinkedIdentityField()
-    payment_sum = serializers.DecimalField(read_only=True, source='payment_sum')
+    payment_sum = serializers.FloatField(read_only=True, source='payment_sum')
 
 
 class PaymentSerializer(serializers.HyperlinkedModelSerializer):
