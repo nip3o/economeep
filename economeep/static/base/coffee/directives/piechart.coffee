@@ -32,6 +32,10 @@ angular.module("economeep").directive 'piechart', ->
                         title:
                             text: attrs.heading
 
+                        tooltip:
+                            formatter:
+                                -> this.series.name + " <b>" + this.y + "</b> " + attrs.unit
+
                         series: [
                             name: attrs.name
                             data: JSON.parse(attrs.data)

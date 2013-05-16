@@ -50,10 +50,10 @@
             Logged in as {{ user.first_name }} {{ user.last_name }}
             <button class="btn btn-small" ng-click="logOut()">Log out</button>
 
-            <piechart name="Total cost" data='{{ paymentsChartData }}'></piechart>
+            <piechart name="Total" unit="kr" data='{{ paymentsChartData }}'></piechart>
 
             <div>
-                <h2>10 latest payments</h2>
+                <h2>Latest payments</h2>
 
                  <table ng-show="payments.length" class="payments table table-striped table-condensed">
                     <tr ng-repeat="payment in payments">

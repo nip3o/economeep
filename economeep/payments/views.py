@@ -16,7 +16,7 @@ class PaymentsList(generics.ListCreateAPIView):
         payment.user = self.request.user
 
     def get_queryset(self):
-        return Payment.objects.filter(user=self.request.user)
+        return Payment.objects.filter(user=self.request.user).order_by('-date')
 
 
 class CategoryList(generics.ListCreateAPIView):
