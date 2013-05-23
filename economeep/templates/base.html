@@ -44,6 +44,7 @@
 
   <body ng-app="economeep" data-csrftoken="{{ csrf_token }}" ng-controller="PaymentListCtrl">
     <div class="container">
+        <h1>economeep</h1>
         {% verbatim %}
 
         <div ng-show="logged_in">
@@ -53,7 +54,7 @@
             <piechart name="Total" unit="kr" data='{{ paymentsChartData }}'></piechart>
 
             <div>
-                <h2>Latest payments</h2>
+                <h2>Latest purchases</h2>
 
                  <table ng-show="payments.length" class="payments table table-striped table-condensed">
                     <tr ng-repeat="payment in payments">
@@ -75,14 +76,14 @@
             </div>
         </div>
 
-        <div ng-controller="StockListCtrl">
-            <h2>Some stocks</h2>
-             <ul>
-                <li ng-repeat="stock in stocks">
-                    {{ stock.name }}
-                    <p>{{ stock.short_name }}</p>
-                </li>
-            </ul>
+        <div ng-controller="StockListCtrl" ng-show="logged_in">
+            <h2>My stocks</h2>
+             <table ng-show="stocks.length" class="payments table table-striped table-condensed">
+                <tr ng-repeat="stock in stocks">
+                    <td>{{ stock.name }}</td>
+                    <td class="currency">{{ stock.price }} {{ stock.currency }}</td>
+                </tr>
+            </table>
         </div>
 
         {% endverbatim %}

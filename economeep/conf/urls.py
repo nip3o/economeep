@@ -26,6 +26,7 @@ urlpatterns = patterns(
     # Apps
     url(r'^payments/', include('payments.urls')),
     url(r'^stocks/', include('stocks.urls')),
+
     url(r'^users/', include('users.urls')),
 
     url(r'^categories/$', CategoryList.as_view(), name='category-list'),

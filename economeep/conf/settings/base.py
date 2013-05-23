@@ -3,6 +3,7 @@
 import os
 from os.path import abspath, basename, dirname, join, normpath
 from sys import path
+from datetime import timedelta
 
 from django.core.exceptions import ImproperlyConfigured
 
@@ -34,6 +35,17 @@ DATABASES = {
 }
 ########## END DATABASE CONFIGURATION
 
+########## CELERY CONFIGURATION
+BROKER_URL = 'redis://localhost:6379/0'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+
+CELERYBEAT_SCHEDULE = {
+    'get-stock-prices': {
+        'task': 'stocks.tasks.get_price_for_all_stocks',
+        'schedule': timedelta(minutes=5),
+    },
+}
+########## END CELERY CONFIGURATION
 
 ########## DJANGO-COMPRESSOR CONFIGURATION
 COMPRESS_PRECOMPILERS = (
@@ -221,6 +233,7 @@ THIRD_PARTY_APPS = (
     'compressor',      # CSS/JS compiler and compressor
     'rest_framework',  # RESTful framwork tool
     'social_auth',     # 3rd party authentication methods
+    'djcelery',        # Django integration for Celery
 )
 
 # Apps specific for this project go here.

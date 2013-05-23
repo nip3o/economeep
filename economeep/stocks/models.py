@@ -15,5 +15,23 @@ class Stock(models.Model):
     short_name = models.CharField(max_length=10)
     currency = models.CharField(choices=CURRENCY, max_length=10)
 
+    def latest_stock_price(self):
+        return self.stockprice_set.latest().price
+
     def __unicode__(self):
         return unicode(self.name)
+
+
+class StockPrice(models.Model):
+    class Meta:
+        verbose_name = _('stock price')
+        verbose_name_plural = _('stock prices')
+        get_latest_by = 'datetime'
+
+    stock = models.ForeignKey(Stock)
+
+    price = models.DecimalField(_('price'), decimal_places=2, max_digits=12)
+    datetime = models.DateTimeField()
+
+    def __unicode__(self):
+        return "%s, %.2f" % (unicode(self.stock), self.price)
