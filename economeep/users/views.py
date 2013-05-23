@@ -5,8 +5,13 @@ from django.contrib.auth.models import User
 from rest_framework import status, generics
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
 
-from .serializers import UserSerializer
+from utils.mixins import CurrentUserObjectMixin
+
+from .serializers import UserSerializer, BudgetSerializer, BudgetEntrySerializer
+from .permissions import BudgetIsOwner
+from .models import Budget, BudgetEntry
 
 
 def login(request, **kwargs):
@@ -33,3 +38,19 @@ def current_user(request):
 class UserDetails(generics.RetrieveAPIView):
     model = User
     serializer_class = UserSerializer
+
+
+class BudgetList(CurrentUserObjectMixin, generics.ListCreateAPIView):
+    model = Budget
+    serializer_class = BudgetSerializer
+
+
+class BudgetDetails(generics.RetrieveAPIView):
+    model = Budget
+    serializer_class = BudgetSerializer
+
+
+class BudgetEntryDetails(generics.ListAPIView):
+    model = BudgetEntry
+    permission_classes = (IsAuthenticated, BudgetIsOwner)
+    serializer_class = BudgetEntrySerializer

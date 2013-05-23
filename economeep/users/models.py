@@ -22,6 +22,9 @@ class BudgetEntry(models.Model):
         verbose_name = _('budget entry')
         verbose_name_plural = _('budget entries')
 
+    def __unicode__(self):
+        return "%s, %.2f" % (unicode(self.category), self.amount)
+
     amount = models.DecimalField(decimal_places=2, max_digits=12)
     category = models.ForeignKey(Category)
-    budget = models.ForeignKey(Budget)
+    budget = models.ForeignKey(Budget, related_name='budget_entries')

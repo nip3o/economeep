@@ -1,22 +1,17 @@
 from rest_framework import generics
-from rest_framework.permissions import IsAuthenticated
 
-from utils.permissions import IsOwner
+from utils.mixins import CurrentUserObjectMixin
 
 from .models import Category, Payment
 from .serializers import CategorySerializer, PaymentSerializer
 
 
-class PaymentsList(generics.ListCreateAPIView):
+class PaymentsList(CurrentUserObjectMixin, generics.ListCreateAPIView):
     model = Payment
     serializer_class = PaymentSerializer
-    permission_classes = (IsAuthenticated, IsOwner)
-
-    def pre_save(self, payment):
-        payment.user = self.request.user
 
     def get_queryset(self):
-        return Payment.objects.filter(user=self.request.user).order_by('-date')
+        return CurrentUserObjectMixin.get_queryset(self).order_by('-date')
 
 
 class CategoryList(generics.ListCreateAPIView):
