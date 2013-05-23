@@ -8,10 +8,10 @@ from django.contrib.auth.models import User
 
 class CategoryQuerySet(models.query.QuerySet):
     """
-    This class is basically just like a regular Manager, but since we also
-    want it to be chainable (which custom managers are not by default),
-    we have to create a custom QuerySet and generate a manager from it by
-    using model_utils PassThroughManager.
+    A CategoryQuerySet is being used like a custom model-manager, but
+    since we also want it to be chainable (which custom managers are not
+    by default), we have to create a custom QuerySet and generate a
+    manager from it by using model_utils PassThroughManager.
 
     A really good article regarding this subject:
     http://dabapps.com/blog/higher-level-query-api-django-orm/
@@ -28,6 +28,10 @@ class CategoryQuerySet(models.query.QuerySet):
 
 
 class Category(models.Model):
+    """
+    A Category represents a certain category of payments, i.e. food,
+    transport, entertainment or similar.
+    """
     class Meta:
         verbose_name = _('category')
         verbose_name_plural = _('categories')
@@ -45,6 +49,10 @@ class Category(models.Model):
 
 
 class Payment(models.Model):
+    """
+    A Payment is a one-time occurring transaction for a specific user,
+    with a fixed amount and for a specific date.
+    """
     class Meta:
         verbose_name = _('payment')
         verbose_name_plural = _('payments')
