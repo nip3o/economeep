@@ -16,7 +16,10 @@ class Stock(models.Model):
     currency = models.CharField(choices=CURRENCY, max_length=10)
 
     def latest_stock_price(self):
-        return self.stockprice_set.latest().price
+        try:
+            return self.stockprice_set.latest().price
+        except StockPrice.DoesNotExist:
+            return None
 
     def __unicode__(self):
         return unicode(self.name)
