@@ -19,7 +19,7 @@ app.factory 'User', (ecoResource, $q, $http) ->
         @getCurrent: ->
             deferred = $q.defer()
 
-            $http.get('users/current/')
+            $http.get(@url + 'current/')
                     .success (data) ->
                         deferred.resolve(new User(data))
                     .error (data) ->

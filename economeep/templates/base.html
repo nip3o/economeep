@@ -17,7 +17,6 @@
     <script src="{% static "base/js/lib/highcharts-3.0.1.min.js" %}" type="text/javascript" charset="utf-8"></script>
     <script src="{% static "base/js/lib/bootstrap-datepicker.js" %}" type="text/javascript" charset="utf-8"></script>
 
-
     <script src="{% static "base/coffee/app.coffee" %}" type="text/coffeescript" charset="utf-8"></script>
     <script src="{% static "base/coffee/resource.coffee" %}" type="text/coffeescript" charset="utf-8"></script>
 
@@ -27,6 +26,8 @@
     <script src="{% static "users/coffee/resources/users.coffee" %}" type="text/coffeescript" charset="utf-8"></script>
     <script src="{% static "payments/coffee/resources/payments.coffee" %}" type="text/coffeescript" charset="utf-8"></script>
     <script src="{% static "payments/coffee/resources/categories.coffee" %}" type="text/coffeescript" charset="utf-8"></script>
+    <script src="{% static "users/coffee/resources/budgetEntry.coffee" %}" type="text/coffeescript" charset="utf-8"></script>
+    <script src="{% static "users/coffee/resources/budget.coffee" %}" type="text/coffeescript" charset="utf-8"></script>
     <script src="{% static "stocks/coffee/resources/stocks.coffee" %}" type="text/coffeescript" charset="utf-8"></script>
 
     <script src="{% static "payments/coffee/controllers/payment_list.coffee" %}" type="text/coffeescript" charset="utf-8"></script>
@@ -42,7 +43,7 @@
     {% endcompress %}
   </head>
 
-  <body ng-app="economeep" data-csrftoken="{{ csrf_token }}" ng-controller="PaymentListCtrl">
+  <body ng-app="economeep" data-csrftoken="{{ csrf_token }}" ng-controller="PaymentsController">
     <div class="container">
         <h1>economeep</h1>
         {% verbatim %}
@@ -54,9 +55,19 @@
             <piechart name="Total" unit="kr" data='{{ paymentsChartData }}'></piechart>
 
             <div>
+                <h2>My budget</h2>
+
+                <table class="table table-striped table-condensed">
+                    <tr ng-repeat="entry in budget.budget_entries">
+                        <td>{{ entry }}</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div>
                 <h2>Latest purchases</h2>
 
-                 <table ng-show="payments.length" class="payments table table-striped table-condensed">
+                <table ng-show="payments.length" class="payments table table-striped table-condensed">
                     <tr ng-repeat="payment in payments">
                         <td>{{ payment.date }}</td>
                         <td>{{ payment.description }}</td>

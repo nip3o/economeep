@@ -1,5 +1,5 @@
-angular.module('economeep').controller 'PaymentListCtrl',
-($dialog, $scope, $rootScope, $templateCache, Category, Payment, User, $http) ->
+angular.module('economeep').controller 'PaymentsController',
+($dialog, $scope, $rootScope, $templateCache, Category, Budget, Payment, User, $http) ->
     $scope.categories = []
 
     # Transform the categories into Highcharts-readable
@@ -25,6 +25,9 @@ angular.module('economeep').controller 'PaymentListCtrl',
 
             Category.query().then (categories) ->
                 $scope.categories = categories
+
+            Budget.byDate(new Date()).then (budget) ->
+                $scope.budget = budget
         ,
         (error) ->
             $scope.logged_in = false
