@@ -11,3 +11,4 @@ djangorestframework==2.3.2
 Markdown==2.3.1
 django-celery-with-redis==3.0
 lxml==3.2.1
+BeautifulSoup==3.2.1
