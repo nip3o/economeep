@@ -1,5 +1,5 @@
 ===========
-Economeeep
+economeeep
 ===========
 
 A project in the course **TDDD27** - Advanced Web Programming, VT-2013
