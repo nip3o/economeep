@@ -9,7 +9,8 @@ from rest_framework.permissions import IsAuthenticated
 
 from utils.mixins import CurrentUserObjectMixin
 
-from .serializers import UserSerializer, BudgetSerializer, BudgetEntrySerializer
+from .serializers import (UserSerializer, BudgetSerializer,
+                          BudgetEntryDeserializer, BudgetEntrySerializer)
 from .permissions import BudgetIsOwner
 from .models import Budget, BudgetEntry
 
@@ -48,6 +49,11 @@ class BudgetList(CurrentUserObjectMixin, generics.ListCreateAPIView):
 class BudgetDetails(generics.RetrieveAPIView):
     model = Budget
     serializer_class = BudgetSerializer
+
+
+class BudgetEntryCreate(generics.CreateAPIView):
+    model = BudgetEntry
+    serializer_class = BudgetEntryDeserializer
 
 
 class BudgetEntryDetails(generics.ListAPIView):

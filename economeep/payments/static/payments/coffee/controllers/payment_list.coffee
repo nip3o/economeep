@@ -104,13 +104,20 @@ angular.module('economeep').controller 'AddCategoryController', ($scope, $rootSc
     $scope.cancel = -> $rootScope.dialog.close()
 
 
-angular.module('economeep').controller 'AddBudgetEntryController', ($scope, $rootScope, Budget) ->
+angular.module('economeep').controller 'AddBudgetEntryController', ($scope, $rootScope, Budget, Category) ->
     $scope.entry = $rootScope.entry
 
     $scope.save = ->
         $scope.entry.$save().then(
-            (entry)->
-                $rootScope.dialog.close(entry)
+            (entry) ->
+                # Replace the selected category URL with a new, fresh
+                # category object for that URL from server
+                category = Category.get(entry.category).then(
+                    (category) ->
+                        entry.category = category
+                        $rootScope.dialog.close(entry)
+                )
+
         )
 
     $scope.cancel = -> $rootScope.dialog.close()

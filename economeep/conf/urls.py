@@ -5,7 +5,7 @@ from django.views.generic import TemplateView
 from rest_framework.urlpatterns import format_suffix_patterns
 
 from payments.views import CategoryList, CategoryDetails
-from users.views import BudgetList, BudgetDetails, BudgetEntryDetails
+from users.views import BudgetList, BudgetEntryCreate, BudgetDetails, BudgetEntryDetails
 
 # Set up internal URLs for admin. Must be done before patterns are set up.
 admin.autodiscover()
@@ -36,6 +36,7 @@ urlpatterns = patterns(
     url(r'^budgets/$', BudgetList.as_view(), name='budget-list'),
     url(r'^budgets/(?P<pk>[0-9]+)/$', BudgetDetails.as_view(), name='budget-detail'),
 
+    url(r'^budget-entries/$', BudgetEntryCreate.as_view(), name='budgetentry-create'),
     url(r'^budget-entries/(?P<pk>[0-9]+)/$', BudgetEntryDetails.as_view(), name='budgetentry-detail'),
 
 )

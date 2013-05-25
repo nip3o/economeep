@@ -15,10 +15,16 @@ class UserSerializer(serializers.ModelSerializer):
 class BudgetEntrySerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = BudgetEntry
-        fields = ('url', 'amount', 'category')
+        fields = ('url', 'budget', 'amount', 'category')
 
     url = serializers.HyperlinkedIdentityField()
     category = CategorySerializer()
+
+
+class BudgetEntryDeserializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = BudgetEntry
+        fields = ('url', 'budget', 'amount', 'category')
 
 
 class BudgetSerializer(serializers.HyperlinkedModelSerializer):

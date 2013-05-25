@@ -6,6 +6,9 @@ angular.module('economeep').factory 'ecoResource', ($q, $http) ->
         constructor: (data) ->
             angular.copy(@constructor.convertFromServer(data), this)
 
+        # Hook for converting attributes on the object sent by server,
+        # before creating a resource class of the object
+        @convertFromServer = (data) -> data
 
         $save: ->
             deferred = $q.defer()
@@ -35,6 +38,16 @@ angular.module('economeep').factory 'ecoResource', ($q, $http) ->
 
             return deferred.promise
 
-        # Hook for converting attributes on the object sent by server,
-        # before creating a resource class of the object
-        @convertFromServer = (data) -> data
+        # Get a specific object instance
+        @get = (instanceUrl) ->
+            deferred = $q.defer()
+
+            result = []
+            $http.get(instanceUrl)
+                .success (data) =>
+                    deferred.resolve(new this(data))
+
+                .error (data) =>
+                    deferred.reject(data)
+
+            return deferred.promise
