@@ -12,6 +12,8 @@
     <script src="{% static "base/js/lib/jquery-1.9.1.min.js" %}" type="text/javascript" charset="utf-8"></script>
     <script src="{% static "base/js/lib/bootstrap-2.3.1.min.js" %}" type="text/javascript" charset="utf-8"></script>
     <script src="{% static "base/js/lib/angular-1.1.4.min.js" %}" type="text/javascript" charset="utf-8"></script>
+    <script src="{% static "base/js/lib/angular-locale_sv-se.js" %}" type="text/javascript" charset="utf-8"></script>
+
     <script src="{% static "base/js/lib/angular-ui.min.js" %}" type="text/javascript" charset="utf-8"></script>
     <script src="{% static "base/js/lib/ui-bootstrap-0.2.0.min.js" %}" type="text/javascript" charset="utf-8"></script>
     <script src="{% static "base/js/lib/highcharts-3.0.1.min.js" %}" type="text/javascript" charset="utf-8"></script>
@@ -55,12 +57,12 @@
             <piechart name="Total" unit="kr" data='{{ paymentsChartData }}'></piechart>
 
             <div>
-                <h2>My budget</h2>
+                <h2>My budget for {{ budget.month_start_date|date:'MMMM yyyy' }}</h2>
 
                 <table class="table table-striped table-condensed">
                     <tr ng-repeat="entry in budget.budget_entries">
                         <td>{{ entry.category.name }}</td>
-                        <td>{{ entry.amount }}</td>
+                        <td class="currency">{{ entry.amount|currency }}</td>
                     </tr>
                 </table>
             </div>
@@ -72,7 +74,7 @@
                     <tr ng-repeat="payment in payments">
                         <td>{{ payment.date }}</td>
                         <td>{{ payment.description }}</td>
-                        <td class="currency">{{ payment.amount }} kr</td>
+                        <td class="currency">{{ payment.amount|currency }}</td>
                     </tr>
                 </table>
 
