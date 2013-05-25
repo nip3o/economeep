@@ -1,0 +1,17 @@
+{% verbatim %}
+<div ng-controller="AddBudgetEntryController">
+    <div class="modal-header">
+        <h3>New budget row</h3>
+    </div>
+    <div class="modal-body">
+        <form class="form-horizontal" name="form" novalidate>
+            <selectable id="budgetCategory" label="Category" model="entry.category" choices="categories" options="required"></selectable>
+            <textinput id="budgetAmount" label="Amount" model="entry.amount" options="required"></textinput>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button ng-click="save()" class="btn" ng-disabled="form.$invalid" ng-class="{'btn-primary': form.$valid}">Save</button>
+        <button ng-click="cancel()" class="btn">Cancel</button>
+    </div>
+</div>
+{% endverbatim %}

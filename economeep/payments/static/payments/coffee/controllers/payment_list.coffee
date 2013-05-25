@@ -1,5 +1,5 @@
 angular.module('economeep').controller 'PaymentsController',
-($dialog, $scope, $rootScope, $templateCache, Category, Budget, Payment, User, $http) ->
+($dialog, $scope, $rootScope, $templateCache, Category, Budget, BudgetEntry, Payment, User, $http) ->
     $scope.categories = []
 
     # Transform the categories into Highcharts-readable
@@ -40,6 +40,20 @@ angular.module('economeep').controller 'PaymentsController',
                 $scope.logged_in = false
         )
 
+    $scope.addBudgetEntry = ->
+        d = $dialog.dialog()
+
+        $rootScope.dialog = d
+        $rootScope.categories = $scope.categories
+        $rootScope.entry = new BudgetEntry(budget: $scope.budget.url,
+                                           amount: '')
+
+        d.open('addBudgetEntryForm', 'AddBudgetEntryController').then(
+            (entry)->
+                $scope.budget.budget_entries.push(entry)
+        )
+
+
     $scope.addPayment = ->
         d = $dialog.dialog()
 
@@ -78,7 +92,6 @@ angular.module('economeep').controller 'AddPaymentController', ($scope, $rootSco
     $scope.cancel = -> $rootScope.dialog.close()
 
 
-
 angular.module('economeep').controller 'AddCategoryController', ($scope, $rootScope, Category) ->
     $scope.category = new Category({name: ''})
 
@@ -86,6 +99,18 @@ angular.module('economeep').controller 'AddCategoryController', ($scope, $rootSc
         $scope.category.$save().then(
             (category)->
                 $rootScope.dialog.close(category)
+        )
+
+    $scope.cancel = -> $rootScope.dialog.close()
+
+
+angular.module('economeep').controller 'AddBudgetEntryController', ($scope, $rootScope, Budget) ->
+    $scope.entry = $rootScope.entry
+
+    $scope.save = ->
+        $scope.entry.$save().then(
+            (entry)->
+                $rootScope.dialog.close(entry)
         )
 
     $scope.cancel = -> $rootScope.dialog.close()
