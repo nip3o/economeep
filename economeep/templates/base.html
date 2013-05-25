@@ -59,7 +59,8 @@
 
                 <table class="table table-striped table-condensed">
                     <tr ng-repeat="entry in budget.budget_entries">
-                        <td>{{ entry }}</td>
+                        <td>{{ entry.category.name }}</td>
+                        <td>{{ entry.amount }}</td>
                     </tr>
                 </table>
             </div>

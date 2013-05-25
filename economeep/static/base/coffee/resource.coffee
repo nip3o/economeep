@@ -4,7 +4,7 @@ angular.module('economeep').factory 'ecoResource', ($q, $http) ->
     class ecoResource
         # Copy all attributes from the recieved object onto the new object
         constructor: (data) ->
-            angular.copy(data, this)
+            angular.copy(@constructor.convertFromServer(data), this)
 
 
         $save: ->
@@ -34,3 +34,7 @@ angular.module('economeep').factory 'ecoResource', ($q, $http) ->
                     deferred.reject(data)
 
             return deferred.promise
+
+        # Hook for converting attributes on the object sent by server,
+        # before creating a resource class of the object
+        @convertFromServer = (data) -> data

@@ -1,4 +1,4 @@
-angular.module('economeep').factory 'Budget', (ecoResource, $q, $http) ->
+angular.module('economeep').factory 'Budget', (ecoResource, Category, BudgetEntry, $q, $http) ->
     class Budget extends ecoResource
         @url = 'budgets/'
 
@@ -12,3 +12,16 @@ angular.module('economeep').factory 'Budget', (ecoResource, $q, $http) ->
                         deferred.reject(data)
 
             return deferred.promise
+
+        @convertFromServer = (data) ->
+            newEntries = []
+            # The Date-constructor in JS is magic!
+            data.date = new Date(data.date)
+
+            for entry in data.budget_entries
+                entry = new BudgetEntry(entry)
+                entry.category = new Category(entry.category)
+                newEntries.push(entry)
+
+            data.budget_entries = newEntries
+            return data
