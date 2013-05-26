@@ -18,10 +18,6 @@ from .permissions import BudgetIsOwner
 from .models import Budget, BudgetEntry
 
 
-def login(request, **kwargs):
-    return auth_login(request, template_name='users/login.html')
-
-
 @api_view(['POST'])
 def logout(request):
     auth_logout(request)
