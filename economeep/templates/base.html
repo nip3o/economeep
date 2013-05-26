@@ -55,11 +55,16 @@
             Logged in as {{ user.first_name }} {{ user.last_name }}
             <button class="btn btn-small" ng-click="logOut()">Log out</button>
 
-            <h2>{{ budget.month_start_date|date:'MMMM yyyy'|title }}</h2>
-
             <piechart name="Total" unit="kr" data='{{ paymentsChartData }}'></piechart>
 
             <div>
+                <h2>{{ budget.month_start_date|date:'MMMM yyyy'|title }}</h2>
+
+                <p>
+                    <button class="btn" ng-click="previousMonth()">&larr; Previous month</button>
+                    <button class="btn" ng-click="nextMonth()">Next month &rarr;</button>
+                </p>
+
                 <table class="table table-striped table-condensed">
                     <tr>
                         <th>Category</th>

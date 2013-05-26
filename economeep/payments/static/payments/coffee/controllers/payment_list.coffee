@@ -2,6 +2,10 @@ angular.module('economeep').controller 'PaymentsController',
 ($dialog, $scope, $rootScope, $templateCache, Category, Budget, BudgetEntry, Payment, User, $http) ->
     $scope.categories = []
 
+    addMonths = (date, months) ->
+        date.setMonth(date.getMonth() + months)
+        return date
+
     # Transform the categories into Highcharts-readable
     updateChartData = (newCategories, oldCategories) ->
         if newCategories != oldCategories
@@ -38,6 +42,33 @@ angular.module('economeep').controller 'PaymentsController',
             (response) ->
                 console.log "Logged out"
                 $scope.logged_in = false
+        )
+
+    $scope.previousMonth = ->
+        prevMonth = addMonths($scope.budget.month_start_date, -1)
+
+        Budget.byDate(prevMonth).then(
+            (budget) ->
+                $scope.budget = budget
+            ,
+            (error) ->
+                $scope.budget = new Budget()
+                $scope.budget.month_start_date = prevMonth
+                $scope.budget.$save()
+        )
+
+    $scope.nextMonth = ->
+        nextMonth = addMonths($scope.budget.month_start_date, 1)
+
+        Budget.byDate(nextMonth).then(
+            (budget) ->
+                $scope.budget = budget
+            ,
+            (error) ->
+                console.log('Faail')
+                $scope.budget = new Budget()
+                $scope.budget.month_start_date = nextMonth
+                $scope.budget.$save()
         )
 
     $scope.addBudgetEntry = ->

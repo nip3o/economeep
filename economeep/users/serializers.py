@@ -34,3 +34,9 @@ class BudgetSerializer(serializers.HyperlinkedModelSerializer):
 
     url = serializers.HyperlinkedIdentityField()
     budget_entries = BudgetEntrySerializer(many=True)
+
+
+class BudgetDeserializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Budget
+        fields = ('month_start_date',)

@@ -10,10 +10,15 @@ angular.module('economeep').factory 'ecoResource', ($q, $http) ->
         # before creating a resource class of the object
         @convertFromServer = (data) -> data
 
+        @convertToServer = (data) -> data
+
         $save: ->
             deferred = $q.defer()
 
-            $http.post(@constructor.url, this)
+            data = {}
+            angular.copy(this, data)
+
+            $http.post(@constructor.url, @constructor.convertToServer(data))
                 .success (data) =>
                     this.url = data.url
                     deferred.resolve(this)

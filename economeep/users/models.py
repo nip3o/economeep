@@ -1,8 +1,19 @@
+from model_utils.managers import PassThroughManager
+
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
 
 from payments.models import Category
+
+
+class BudgetQuerySet(models.query.QuerySet):
+    """
+    See payments/models.py for more information about custom querysets like this.
+    """
+    def for_month(self, year, month):
+        return self.filter(month_start_date__year=year,
+                           month_start_date__month=month)
 
 
 class Budget(models.Model):
@@ -15,6 +26,8 @@ class Budget(models.Model):
 
     month_start_date = models.DateField(_('month start date'))
     user = models.ForeignKey(User)
+
+    objects = PassThroughManager.for_queryset_class(BudgetQuerySet)()
 
 
 class BudgetEntry(models.Model):
