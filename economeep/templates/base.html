@@ -22,6 +22,7 @@
     <script src="{% static "base/coffee/app.coffee" %}" type="text/coffeescript" charset="utf-8"></script>
     <script src="{% static "base/coffee/resource.coffee" %}" type="text/coffeescript" charset="utf-8"></script>
 
+    <script src="{% static "base/coffee/filters.coffee" %}" type="text/coffeescript" charset="utf-8"></script>
     <script src="{% static "base/coffee/directives/forms.coffee" %}" type="text/coffeescript" charset="utf-8"></script>
     <script src="{% static "base/coffee/directives/piechart.coffee" %}" type="text/coffeescript" charset="utf-8"></script>
 
@@ -34,7 +35,7 @@
 
     <script src="{% static "payments/coffee/controllers/payment_list.coffee" %}" type="text/coffeescript" charset="utf-8"></script>
     <script src="{% static "stocks/coffee/controllers/stock_list.coffee" %}" type="text/coffeescript" charset="utf-8"></script>
-    {% endcompress %}
+    {% endcompress %}i
 
     {% compress css %}
     <link href="{% static "base/css/lib/bootstrap.min.css" %}" rel="stylesheet" type="text/css">
@@ -54,11 +55,11 @@
             Logged in as {{ user.first_name }} {{ user.last_name }}
             <button class="btn btn-small" ng-click="logOut()">Log out</button>
 
+            <h2>{{ budget.month_start_date|date:'MMMM yyyy'|title }}</h2>
+
             <piechart name="Total" unit="kr" data='{{ paymentsChartData }}'></piechart>
 
             <div>
-                <h2>My budget for {{ budget.month_start_date|date:'MMMM yyyy' }}</h2>
-
                 <table class="table table-striped table-condensed">
                     <tr>
                         <th>Category</th>
@@ -78,7 +79,7 @@
             </div>
 
             <div>
-                <h2>Latest purchases</h2>
+                <h3>Latest purchases</h3>
 
                 <table ng-show="payments.length" class="payments table table-striped table-condensed">
                     <tr>
