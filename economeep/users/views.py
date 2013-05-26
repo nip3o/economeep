@@ -30,6 +30,9 @@ def logout(request):
 
 @api_view(['GET'])
 def current_user(request):
+    """
+    Resturns the currently logged-in user, or HTTP 401 if no user is logged-in
+    """
     user = request.user
 
     if not user.is_authenticated():
@@ -49,7 +52,11 @@ class BudgetList(CurrentUserObjectMixin,
     """
     These views is a test of a slightly more low-level and customized API view
     than the rest, mostly since I wanted to test how well Django REST Framwork
-    suits when the standard API views is not suitable.
+    suits for non-standard API views.
+
+    A more sane way to do this would be to create one RetrieveAPIView for
+    getting the Budget, and one CreateView for creating new entries.
+    But that would be boring and non-educational. =)
     """
     model = Budget
     serializer_class = BudgetSerializer
@@ -67,6 +74,7 @@ class BudgetList(CurrentUserObjectMixin,
         return get_object_or_404(qs)
 
     def post(self, request, *args, **kwargs):
+        # Called when issuing POST, creates a new object.
         serializer = BudgetDeserializer(data=request.DATA)
 
         if serializer.is_valid():
