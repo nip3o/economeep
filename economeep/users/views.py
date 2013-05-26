@@ -20,6 +20,7 @@ from .models import Budget, BudgetEntry
 
 @api_view(['POST'])
 def logout(request):
+    """ View for logging out the current user by POST-request. """
     auth_logout(request)
     return Response()
 
@@ -27,7 +28,8 @@ def logout(request):
 @api_view(['GET'])
 def current_user(request):
     """
-    Resturns the currently logged-in user, or HTTP 401 if no user is logged-in
+    View for fetching the User-instance for the currently logged-in user,
+    or HTTP 401 if no user is logged-in.
     """
     user = request.user
 
@@ -39,14 +41,36 @@ def current_user(request):
 
 
 class UserDetails(generics.RetrieveAPIView):
+    """ API view for reading a single User-instance. """
     model = User
     serializer_class = UserSerializer
+
+
+class BudgetDetails(generics.RetrieveAPIView):
+    """ API view for reading a single Budget-instance, including entries. """
+    model = Budget
+    serializer_class = BudgetSerializer
+
+
+class BudgetEntryCreate(generics.CreateAPIView):
+    """ API view for creating new BudgetEntry instances. """
+    model = BudgetEntry
+    serializer_class = BudgetEntryDeserializer
+
+
+class BudgetEntryDetails(generics.ListAPIView):
+    """ API view for fetching all BudgetEntry instances. """
+    model = BudgetEntry
+    permission_classes = (IsAuthenticated, BudgetIsOwner)
+    serializer_class = BudgetEntrySerializer
 
 
 class BudgetList(CurrentUserObjectMixin,
                  mixins.CreateModelMixin, generics.RetrieveAPIView):
     """
-    These views is a test of a slightly more low-level and customized API view
+    API view for fetching a Budget instance by date, or creating a new instance.
+
+    This view is a test of a slightly more low-level and customized API view
     than the rest, mostly since I wanted to test how well Django REST Framwork
     suits for non-standard API views.
 
@@ -82,19 +106,3 @@ class BudgetList(CurrentUserObjectMixin,
                             headers=headers)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
-class BudgetDetails(generics.RetrieveAPIView):
-    model = Budget
-    serializer_class = BudgetSerializer
-
-
-class BudgetEntryCreate(generics.CreateAPIView):
-    model = BudgetEntry
-    serializer_class = BudgetEntryDeserializer
-
-
-class BudgetEntryDetails(generics.ListAPIView):
-    model = BudgetEntry
-    permission_classes = (IsAuthenticated, BudgetIsOwner)
-    serializer_class = BudgetEntrySerializer

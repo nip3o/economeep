@@ -7,6 +7,10 @@ from .serializers import CategorySerializer, PaymentSerializer
 
 
 class PaymentsList(CurrentUserObjectMixin, generics.ListCreateAPIView):
+    """
+    API view for fetching all Payment instances belonging to the current
+    user or create a new Payment.
+    """
     model = Payment
     serializer_class = PaymentSerializer
 
@@ -15,6 +19,7 @@ class PaymentsList(CurrentUserObjectMixin, generics.ListCreateAPIView):
 
 
 class CategoryList(generics.ListCreateAPIView):
+    """ API view for fetching all categories or create a new Category. """
     model = Category
     serializer_class = CategorySerializer
 
@@ -23,5 +28,6 @@ class CategoryList(generics.ListCreateAPIView):
 
 
 class CategoryDetails(generics.RetrieveAPIView):
+    """ API view for reading a single Category instance. """
     model = Category
     serializer_class = CategorySerializer
