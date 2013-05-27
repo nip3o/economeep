@@ -95,7 +95,8 @@ class BudgetList(CurrentUserObjectMixin,
 
     def post(self, request, *args, **kwargs):
         # Called when issuing POST, creates a new object.
-        serializer = BudgetDeserializer(data=request.DATA)
+        serializer = BudgetDeserializer(data=request.DATA,
+                                        context={'request': request})
 
         if serializer.is_valid():
             self.pre_save(serializer.object)
