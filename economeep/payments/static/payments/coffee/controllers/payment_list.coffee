@@ -6,6 +6,20 @@ angular.module('economeep').controller 'PaymentsController',
         date.setMonth(date.getMonth() + months)
         return date
 
+    getOrCreateBudget = (date) ->
+        Budget.byDate(date).then(
+            (budget) ->
+                $scope.budget = budget
+            ,
+            (error) ->
+                $scope.budget = new Budget(month_start_date: date, budget_entries: [])
+                $scope.budget.$save().then(
+                    (budget) ->
+                        # Update the local budget with the one from server
+                        $scope.budget = budget
+                )
+        )
+
     # Transform the categories into Highcharts-readable
     updateChartData = (newCategories, oldCategories) ->
         if newCategories != oldCategories
@@ -45,31 +59,13 @@ angular.module('economeep').controller 'PaymentsController',
         )
 
     $scope.previousMonth = ->
-        prevMonth = addMonths($scope.budget.month_start_date, -1)
-
-        Budget.byDate(prevMonth).then(
-            (budget) ->
-                $scope.budget = budget
-            ,
-            (error) ->
-                $scope.budget = new Budget()
-                $scope.budget.month_start_date = prevMonth
-                $scope.budget.$save()
-        )
+        prevMonthDate = addMonths($scope.budget.month_start_date, -1)
+        getOrCreateBudget(prevMonthDate)
 
     $scope.nextMonth = ->
-        nextMonth = addMonths($scope.budget.month_start_date, 1)
+        nextMonthDate = addMonths($scope.budget.month_start_date, 1)
+        getOrCreateBudget(nextMonthDate)
 
-        Budget.byDate(nextMonth).then(
-            (budget) ->
-                $scope.budget = budget
-            ,
-            (error) ->
-                console.log('Faail')
-                $scope.budget = new Budget()
-                $scope.budget.month_start_date = nextMonth
-                $scope.budget.$save()
-        )
 
     $scope.addBudgetEntry = ->
         d = $dialog.dialog()

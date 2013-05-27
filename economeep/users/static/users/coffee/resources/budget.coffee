@@ -14,20 +14,19 @@ angular.module('economeep').factory 'Budget', (ecoResource, Category, BudgetEntr
             return deferred.promise
 
         @convertFromServer = (data) ->
-            if data
-                newEntries = []
-                # The Date-constructor in JS is magic!
-                data.month_start_date = new Date(data.month_start_date)
+            newEntries = []
+            # The Date-constructor in JS is magic!
+            data.month_start_date = new Date(data.month_start_date)
 
-                for entry in data.budget_entries
-                    entry = new BudgetEntry(entry)
-                    # Due to float arithmetric error risk, Decimals is serialized
-                    # as strings, so we need to deserialize them here.
-                    entry.amount = parseFloat(entry.amount)
-                    entry.category = new Category(entry.category)
-                    newEntries.push(entry)
+            for entry in data.budget_entries
+                entry = new BudgetEntry(entry)
+                # Due to float arithmetric error risk, Decimals is serialized
+                # as strings, so we need to deserialize them here.
+                entry.amount = parseFloat(entry.amount)
+                entry.category = new Category(entry.category)
+                newEntries.push(entry)
 
-                data.budget_entries = newEntries
+            data.budget_entries = newEntries
             return data
 
         @convertToServer = (data) ->
