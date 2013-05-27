@@ -11,6 +11,7 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 
 from utils.mixins import CurrentUserObjectMixin
+from utils.date import string_to_date
 
 from .serializers import (UserSerializer, BudgetSerializer, BudgetDeserializer,
                           BudgetEntryDeserializer, BudgetEntrySerializer)
@@ -88,7 +89,7 @@ class BudgetList(CurrentUserObjectMixin,
 
         date = self.request.QUERY_PARAMS.get('date', None)
         if date:
-            date = datetime.datetime.fromtimestamp(int(date) / 1000)
+            date = string_to_date(date)
             qs = qs.for_month(date.year, date.month)
 
         return get_object_or_404(qs)
@@ -99,6 +100,9 @@ class BudgetList(CurrentUserObjectMixin,
                                         context={'request': request})
 
         if serializer.is_valid():
+            # Set day to first day in month
+            serializer.object.month_start_date = serializer.object.month_start_date.replace(day=1)
+
             self.pre_save(serializer.object)
             self.object = serializer.save()
 

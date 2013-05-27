@@ -5,7 +5,8 @@ angular.module('economeep').factory 'Budget', (ecoResource, Category, BudgetEntr
         @byDate = (date) ->
             deferred = $q.defer()
 
-            $http.get(@url + '?' + $.param({'date': date.getTime()}))
+            dateString = $filter('date')(date, "yyyy-MM-dd")
+            $http.get(@url + '?' + $.param({'date': dateString}))
                     .success (data) ->
                         deferred.resolve(new Budget(data))
                     .error (data) ->

@@ -27,6 +27,12 @@ class CategoryQuerySet(models.query.QuerySet):
                            payment__date__month=month)
 
 
+class PaymentQuerySet(models.query.QuerySet):
+    def for_month(self, year, month):
+        return self.filter(date__year=year,
+                           date__month=month)
+
+
 class Category(models.Model):
     """
     A Category represents a certain category of payments, i.e. food,
@@ -39,10 +45,10 @@ class Category(models.Model):
     def __unicode__(self):
         return unicode(self.name)
 
-    name = models.CharField(max_length=50)
-
     # Create a chainable manager from the CategoryQuerySet declared above
     objects = PassThroughManager.for_queryset_class(CategoryQuerySet)()
+
+    name = models.CharField(max_length=50)
 
     def get_payment_sum(self):
         return self.payment_set.aggregate(s=Sum('amount'))['s']
@@ -59,6 +65,8 @@ class Payment(models.Model):
 
     def __unicode__(self):
         return '%.2f %s' % (self.amount, unicode(self.description))
+
+    objects = PassThroughManager.for_queryset_class(PaymentQuerySet)()
 
     date = models.DateField(_('date'))
     amount = models.DecimalField(_('amount'), decimal_places=2, max_digits=12)

@@ -44,8 +44,7 @@ angular.module('economeep').controller 'PaymentsController',
             Category.query().then (categories) ->
                 $scope.categories = categories
 
-            Budget.byDate(new Date()).then (budget) ->
-                $scope.budget = budget
+            getOrCreateBudget(new Date())
         ,
         (error) ->
             $scope.logged_in = false

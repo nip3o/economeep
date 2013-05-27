@@ -1,3 +1,5 @@
+import datetime
+
 from rest_framework import generics
 
 from utils.mixins import CurrentUserObjectMixin
@@ -15,7 +17,14 @@ class PaymentsList(CurrentUserObjectMixin, generics.ListCreateAPIView):
     serializer_class = PaymentSerializer
 
     def get_queryset(self):
-        return CurrentUserObjectMixin.get_queryset(self).order_by('-date')
+        qs = CurrentUserObjectMixin.get_queryset(self)
+
+        date = self.request.QUERY_PARAMS.get('date', None)
+        if date:
+            date = datetime.datetime.strptime(date, '%Y-%m-%d')
+            qs = qs.for_month(date.year, date.month)
+
+        return qs.order_by('-date')
 
 
 class CategoryList(generics.ListCreateAPIView):
