@@ -6,6 +6,10 @@ angular.module('economeep').controller 'PaymentsController',
         date.setMonth(date.getMonth() + months)
         return date
 
+    sameMonth = (d1, d2) ->
+        d1.getMonth() is d2.getMonth() and d1.getYear() is d2.getYear()
+
+    # Fetch or create a Budget for a date and add the Budget to scope
     getOrCreateBudget = (date) ->
         Budget.byDate(date).then(
             (budget) ->
@@ -20,7 +24,10 @@ angular.module('economeep').controller 'PaymentsController',
                 )
         )
 
-    # Transform the categories into Highcharts-readable
+        Payment.byDate(date).then (payments) ->
+            $scope.payments = payments
+
+    # Transform the categories into Highcharts-readable format
     updateChartData = (newCategories, oldCategories) ->
         if newCategories != oldCategories
             chartData = []
@@ -33,18 +40,18 @@ angular.module('economeep').controller 'PaymentsController',
     # Update chart data when categories change
     $scope.$watch('categories', updateChartData, true)
 
+    # Get the logged-in user
     User.getCurrent().then(
         (user) ->
             $scope.logged_in = true
             $scope.user = user
 
-            Payment.query().then (payments) ->
-                $scope.payments = payments
+            currentDate = new Date()
 
             Category.query().then (categories) ->
                 $scope.categories = categories
 
-            getOrCreateBudget(new Date())
+            getOrCreateBudget(currentDate)
         ,
         (error) ->
             $scope.logged_in = false
@@ -60,6 +67,7 @@ angular.module('economeep').controller 'PaymentsController',
     $scope.previousMonth = ->
         prevMonthDate = addMonths($scope.budget.month_start_date, -1)
         getOrCreateBudget(prevMonthDate)
+
 
     $scope.nextMonth = ->
         nextMonthDate = addMonths($scope.budget.month_start_date, 1)
@@ -88,7 +96,8 @@ angular.module('economeep').controller 'PaymentsController',
 
         d.open('addPaymentForm', 'AddPaymentController').then(
             (payment)->
-                if payment
+                if payment and sameMonth(new Date(payment.date),
+                                         $scope.budget.month_start_date)
                     Category.query().then (categories) ->
                         $scope.categories = categories
                         $scope.payments.push(payment)

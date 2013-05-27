@@ -2,18 +2,6 @@ angular.module('economeep').factory 'Budget', (ecoResource, Category, BudgetEntr
     class Budget extends ecoResource
         @url = 'budgets/'
 
-        @byDate = (date) ->
-            deferred = $q.defer()
-
-            dateString = $filter('date')(date, "yyyy-MM-dd")
-            $http.get(@url + '?' + $.param({'date': dateString}))
-                    .success (data) ->
-                        deferred.resolve(new Budget(data))
-                    .error (data) ->
-                        deferred.reject(data)
-
-            return deferred.promise
-
         @convertFromServer = (data) ->
             newEntries = []
             # The Date-constructor in JS is magic!
