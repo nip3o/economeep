@@ -10,7 +10,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 
-from utils.mixins import CurrentUserObjectMixin
+from utils.mixins import UserObjectMixin
 from utils.date import string_to_date
 
 from .serializers import (UserSerializer, BudgetSerializer, BudgetDeserializer,
@@ -66,7 +66,7 @@ class BudgetEntryDetails(generics.ListAPIView):
     serializer_class = BudgetEntrySerializer
 
 
-class BudgetList(CurrentUserObjectMixin,
+class BudgetList(UserObjectMixin,
                  mixins.CreateModelMixin, generics.RetrieveAPIView):
     """
     API view for fetching a Budget instance by date, or creating a new instance.

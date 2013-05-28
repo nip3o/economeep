@@ -9,8 +9,8 @@ angular.module('economeep').controller 'PaymentsController',
     sameMonth = (d1, d2) ->
         d1.getMonth() is d2.getMonth() and d1.getYear() is d2.getYear()
 
-    # Fetch or create a Budget for a date and add the Budget to scope
-    getOrCreateBudget = (date) ->
+    getDataForDateMonth = (date) ->
+        # Fetch or create a Budget for a date and add the Budget to scope
         Budget.byDate(date).then(
             (budget) ->
                 $scope.budget = budget
@@ -24,8 +24,12 @@ angular.module('economeep').controller 'PaymentsController',
                 )
         )
 
+        # Fetch Payments and Categories for the same date's month
         Payment.byDate(date).then (payments) ->
             $scope.payments = payments
+
+        Category.byDate(date).then (categories) ->
+            $scope.categories = categories
 
     # Transform the categories into Highcharts-readable format
     updateChartData = (newCategories, oldCategories) ->
@@ -47,11 +51,7 @@ angular.module('economeep').controller 'PaymentsController',
             $scope.user = user
 
             currentDate = new Date()
-
-            Category.query().then (categories) ->
-                $scope.categories = categories
-
-            getOrCreateBudget(currentDate)
+            getDataForDateMonth(currentDate)
         ,
         (error) ->
             $scope.logged_in = false
@@ -66,12 +66,12 @@ angular.module('economeep').controller 'PaymentsController',
 
     $scope.previousMonth = ->
         prevMonthDate = addMonths($scope.budget.month_start_date, -1)
-        getOrCreateBudget(prevMonthDate)
+        getDataForDateMonth(prevMonthDate)
 
 
     $scope.nextMonth = ->
         nextMonthDate = addMonths($scope.budget.month_start_date, 1)
-        getOrCreateBudget(nextMonthDate)
+        getDataForDateMonth(nextMonthDate)
 
 
     $scope.addBudgetEntry = ->
