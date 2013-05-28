@@ -27,8 +27,8 @@ class CategoryList(DateFilterMixin, generics.ListCreateAPIView):
     serializer_class = CategorySerializer
 
     def get_queryset(self):
-        qs = Category.objects.with_payment_sum()
-        return DateFilterMixin.date_filter(self, qs)
+        qs = DateFilterMixin.date_filter(self, Category.objects.all())
+        return qs.with_payment_sum()
 
 
 class CategoryDetails(generics.RetrieveAPIView):
