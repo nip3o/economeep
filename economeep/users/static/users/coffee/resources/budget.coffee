@@ -12,7 +12,6 @@ angular.module('economeep').factory 'Budget', (ecoResource, Category, BudgetEntr
                 # Due to float arithmetric error risk, Decimals is serialized
                 # as strings, so we need to deserialize them here.
                 entry.amount = parseFloat(entry.amount)
-                entry.category = new Category(entry.category)
                 newEntries.push(entry)
 
             data.budget_entries = newEntries

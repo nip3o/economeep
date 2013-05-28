@@ -2,7 +2,6 @@ from rest_framework import serializers
 
 from django.contrib.auth.models import User
 
-from payments.serializers import CategorySerializer
 from users.models import Budget, BudgetEntry
 
 
@@ -18,7 +17,6 @@ class BudgetEntrySerializer(serializers.HyperlinkedModelSerializer):
         fields = ('url', 'budget', 'amount', 'category')
 
     url = serializers.HyperlinkedIdentityField()
-    category = CategorySerializer()
 
 
 class BudgetEntryDeserializer(serializers.HyperlinkedModelSerializer):

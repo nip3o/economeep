@@ -34,6 +34,7 @@ class BudgetEntry(models.Model):
     class Meta:
         verbose_name = _('budget entry')
         verbose_name_plural = _('budget entries')
+        ordering = ['category__name']
 
     def __unicode__(self):
         return "%s, %.2f" % (unicode(self.category), self.amount)

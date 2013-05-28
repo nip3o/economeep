@@ -18,7 +18,7 @@ class PaymentsList(UserObjectDateFilterMixin, generics.ListCreateAPIView):
         # super() may be ambigous when using multiple inheritance with
         # overloaded methods, as in this case, so use class name instead
         qs = UserObjectDateFilterMixin.get_queryset(self)
-        return qs.order_by('-date')
+        return qs.order_by('date')
 
 
 class CategoryList(DateFilterMixin, generics.ListCreateAPIView):
