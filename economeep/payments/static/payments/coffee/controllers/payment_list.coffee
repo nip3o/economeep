@@ -28,8 +28,8 @@ angular.module('economeep').controller 'PaymentsController',
         Payment.byDate(date).then (payments) ->
             $scope.payments = payments
 
-        Category.byDate(date).then (categories) ->
-            $scope.categories = categories
+        Category.byDate(date).then (stats) ->
+            $scope.stats = stats
 
     # Transform the categories into Highcharts-readable format
     updateChartData = (newCategories, oldCategories) ->
@@ -42,13 +42,16 @@ angular.module('economeep').controller 'PaymentsController',
             $scope.paymentsChartData = chartData
 
     # Update chart data when categories change
-    $scope.$watch('categories', updateChartData, true)
+    $scope.$watch('stats', updateChartData, true)
 
     # Get the logged-in user
     User.getCurrent().then(
         (user) ->
             $scope.logged_in = true
             $scope.user = user
+
+            Category.query().then (categories) ->
+                $scope.categories = categories
 
             currentDate = new Date()
             getDataForDateMonth(currentDate)
