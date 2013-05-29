@@ -1,6 +1,5 @@
 angular.module('economeep').controller 'PaymentsController',
-($dialog, $scope, $rootScope, $templateCache, Category, Budget, BudgetEntry, Payment, User, $http) ->
-    $scope.categories = []
+($dialog, $scope, $rootScope, $templateCache, Category, Budget, BudgetEntry, Payment, User, $http, categories) ->
     $scope.statsByURL = []
 
     addMonths = (date, months) ->
@@ -46,7 +45,7 @@ angular.module('economeep').controller 'PaymentsController',
     $scope.$watch('stats', updateChartData, true)
 
     updateStatsByURL = (newStats, oldStats) ->
-        for s in $scope.categories
+        for s in categories.getAll()
             s.payment_sum = 0
             $scope.statsByURL[s.url] = s
 
@@ -64,9 +63,7 @@ angular.module('economeep').controller 'PaymentsController',
             $scope.logged_in = true
             $scope.user = user
 
-            Category.query().then (categories) ->
-                $scope.categories = categories
-
+            categories.fetchFromServer()
             currentDate = new Date()
             getDataForDateMonth(currentDate)
         ,
@@ -95,7 +92,6 @@ angular.module('economeep').controller 'PaymentsController',
         d = $dialog.dialog()
 
         $rootScope.dialog = d
-        $rootScope.categories = $scope.categories
         $rootScope.entry = new BudgetEntry(budget: $scope.budget.url,
                                            amount: '')
 
@@ -107,9 +103,7 @@ angular.module('economeep').controller 'PaymentsController',
 
     $scope.addPayment = ->
         d = $dialog.dialog()
-
         $rootScope.dialog = d
-        $rootScope.categories = $scope.categories
 
         d.open('addPaymentForm', 'AddPaymentController').then(
             (payment)->
@@ -130,17 +124,17 @@ angular.module('economeep').controller 'PaymentsController',
 
     $scope.addCategory = ->
         d = $dialog.dialog()
-
         $rootScope.dialog = d
 
         d.open('addCategoryForm', 'AddCategoryController').then(
             (category)->
-                $scope.categories.push(category)
+                categories.add(category)
         )
 
 
-angular.module('economeep').controller 'AddPaymentController', ($scope, $rootScope, Payment) ->
+angular.module('economeep').controller 'AddPaymentController', ($scope, $rootScope, Payment, categories) ->
     $scope.payment = new Payment({description: '', amount: ''})
+    $scope.categories = categories.getAll()
 
     $scope.save = ->
         $scope.payment.$save().then(
@@ -164,8 +158,9 @@ angular.module('economeep').controller 'AddCategoryController', ($scope, $rootSc
     $scope.cancel = -> $rootScope.dialog.close()
 
 
-angular.module('economeep').controller 'AddBudgetEntryController', ($scope, $rootScope, Budget, Category) ->
+angular.module('economeep').controller 'AddBudgetEntryController', ($scope, $rootScope, Budget, Category, categories) ->
     $scope.entry = $rootScope.entry
+    $scope.categories = categories.getAll()
 
     $scope.save = ->
         $scope.entry.$save().then(
