@@ -36,9 +36,13 @@
     <script src="{% static "users/coffee/resources/budget.coffee" %}" type="text/coffeescript" charset="utf-8"></script>
     <script src="{% static "stocks/coffee/resources/stocks.coffee" %}" type="text/coffeescript" charset="utf-8"></script>
 
-    <script src="{% static "payments/coffee/controllers/payment_list.coffee" %}" type="text/coffeescript" charset="utf-8"></script>
-    <script src="{% static "stocks/coffee/controllers/stock_list.coffee" %}" type="text/coffeescript" charset="utf-8"></script>
-    {% endcompress %}i
+    <script src="{% static "users/coffee/controllers/addBudgetEntry.coffee" %}" type="text/coffeescript" charset="utf-8"></script>
+    <script src="{% static "payments/coffee/controllers/addPayment.coffee" %}" type="text/coffeescript" charset="utf-8"></script>
+    <script src="{% static "payments/coffee/controllers/addCategory.coffee" %}" type="text/coffeescript" charset="utf-8"></script>
+
+    <script src="{% static "payments/coffee/controllers/payments.coffee" %}" type="text/coffeescript" charset="utf-8"></script>
+    <script src="{% static "stocks/coffee/controllers/stockList.coffee" %}" type="text/coffeescript" charset="utf-8"></script>
+    {% endcompress %}
 
     {% compress css %}
     <link href="{% static "base/css/lib/bootstrap.min.css" %}" rel="stylesheet" type="text/css">
@@ -112,16 +116,16 @@
 
                 {{ payment_form }}
             </div>
-        </div>
 
-        <div ng-controller="StockListCtrl" ng-show="logged_in">
-            <h2>My stocks</h2>
-             <table ng-show="stocks.length" class="payments table table-striped table-condensed">
-                <tr ng-repeat="stock in stocks">
-                    <td>{{ stock.name }}</td>
-                    <td class="currency">{{ stock.price }} {{ stock.currency }}</td>
-                </tr>
-            </table>
+            <div ng-controller="StockListController">
+                <h2>My stocks</h2>
+                 <table ng-show="stocks.length" class="payments table table-striped table-condensed">
+                    <tr ng-repeat="stock in stocks">
+                        <td>{{ stock.name }}</td>
+                        <td class="currency">{{ stock.price }} {{ stock.currency }}</td>
+                    </tr>
+                </table>
+            </div>
         </div>
 
         {% endverbatim %}
