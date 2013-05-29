@@ -16,6 +16,7 @@ angular.module('economeep').controller 'PaymentsController',
             $scope.payments = payments
 
         Category.byDate(date).then (stats) ->
+            $scope.statsByURL = []
             $scope.stats = stats
 
             # Fetch or create a Budget for a date and add the Budget to scope
@@ -29,8 +30,6 @@ angular.module('economeep').controller 'PaymentsController',
                     $scope.budget = new Budget(month_start_date: date, budget_entries: [])
                     $scope.budget.$save().then(
                         (budget) ->
-                            for e in budget.budget_entries
-                                e.category = $scope.statsByURL[e.category]
                             $scope.budget = budget
                     )
             )
@@ -47,12 +46,11 @@ angular.module('economeep').controller 'PaymentsController',
     $scope.$watch('stats', updateChartData, true)
 
     updateStatsByURL = (newStats, oldStats) ->
-        if oldStats
-            # Make sure any old data is flushed out
-            for s in oldStats
-                $scope.statsByURL[s.url].payment_sum = 0
+        for s in $scope.categories
+            s.payment_sum = 0
+            $scope.statsByURL[s.url] = s
 
-        if newStats
+        if newStats != oldStats
             # Update the array holding the current stats
             for s in newStats
                 $scope.statsByURL[s.url] = s
@@ -120,7 +118,12 @@ angular.module('economeep').controller 'PaymentsController',
                 if payment and sameMonth(paymentDate,
                                          $scope.budget.month_start_date)
                     category = $scope.statsByURL[payment.category]
-                    category.payment_sum += parseFloat(payment.amount)
+                    amount = parseFloat(payment.amount)
+                    category.payment_sum += amount
+
+                    if category.payment_sum == amount
+                        $scope.stats.push(angular.copy(category))
+
                     payment.category = category
                     $scope.payments.push(payment)
         )
