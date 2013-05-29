@@ -74,7 +74,7 @@
                         <th class="currency">Budget amount</th>
                         <th class="currency">Spent amount</th>
                     </tr>
-                    <tr ng-repeat="entry in budget.budget_entries">
+                    <tr ng-repeat="entry in budget.budget_entries|orderBy:'category.name'">
                         <td>{{ entry.category.name }}</td>
                         <td class="currency">{{ entry.amount|currency }}</td>
                         <td class="currency">{{ entry.category.payment_sum|currency }}</td>
@@ -95,7 +95,7 @@
                         <th>Description</th>
                         <th class="currency">Amount</th>
                     </tr>
-                    <tr ng-repeat="payment in payments">
+                    <tr ng-repeat="payment in payments|orderBy:'date'">
                         <td>{{ payment.date }}</td>
                         <td>{{ payment.description }}</td>
                         <td class="currency">{{ payment.amount|currency }}</td>
