@@ -2,12 +2,19 @@ angular.module('economeep').controller 'PaymentsController',
 ($dialog, $scope, $rootScope, $templateCache, Category, Budget, BudgetEntry, Payment, User, $http, categories, ecoDialog) ->
     $scope.statsByURL = []
 
-    addMonths = (date, months) ->
-        date.setMonth(date.getMonth() + months)
-        return date
+    # Get the logged-in user
+    User.getCurrent().then(
+        (user) ->
+            $scope.logged_in = true
+            $scope.user = user
 
-    sameMonth = (d1, d2) ->
-        d1.getMonth() == d2.getMonth() and d1.getYear() == d2.getYear()
+            categories.fetchFromServer()
+            currentDate = new Date()
+            getDataForDateMonth(currentDate)
+        ,
+        (error) ->
+            $scope.logged_in = false
+    )
 
     getDataForDateMonth = (date) ->
         # Fetch Payments and Categories for the same date's month
@@ -57,19 +64,13 @@ angular.module('economeep').controller 'PaymentsController',
     $scope.$watch('stats', updateStatsByURL, true)
 
 
-    # Get the logged-in user
-    User.getCurrent().then(
-        (user) ->
-            $scope.logged_in = true
-            $scope.user = user
+    addMonths = (date, months) ->
+        date.setMonth(date.getMonth() + months)
+        return date
 
-            categories.fetchFromServer()
-            currentDate = new Date()
-            getDataForDateMonth(currentDate)
-        ,
-        (error) ->
-            $scope.logged_in = false
-    )
+    sameMonth = (d1, d2) ->
+        d1.getMonth() == d2.getMonth() and d1.getYear() == d2.getYear()
+
 
     $scope.logOut = ->
         $scope.user.logOut().then(
