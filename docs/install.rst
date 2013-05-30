@@ -1,5 +1,5 @@
-Install
-=========
+Installing economeep
+*********************
 
 To use this project follow these steps:
 
@@ -34,7 +34,7 @@ project path to the `site-directory` for you
     $ cd economeep && add2virtualenv .
 
 
-Installation of Dependencies
+Installation of dependencies
 =============================
 
 Depending on where you are installing dependencies:
@@ -64,6 +64,7 @@ To avoid some teadiuos writing, do the following:
 
 * Alias ``django-admin.py`` to ``dj`` (for example).
 * Add ``DJANGO_SETTINGS_MODULE=conf.settings.development`` to your ``$VIRTUAL_ENV/bin/postactivate`` file
+
 ::
 
     $ echo "alias dj='django-admin.py'" >> ~/.bashrc
@@ -85,7 +86,7 @@ for economeep as below
     > create database economeep;
     > \q
     # exit
-    
+
 
 The database connection settings is configured using environment variables.
 Add your credentials to your ``$VIRTUAL_ENV/bin/postactivate`` file in the same way as above.
@@ -93,8 +94,8 @@ Add your credentials to your ``$VIRTUAL_ENV/bin/postactivate`` file in the same 
 
     export DB_USER=my_username
     export DB_PASSWORD=my_secr3t_p4ssw0rd
-    
-    
+
+
 Facebook authentication
 =======================
 
@@ -103,6 +104,7 @@ This app uses Facebook for authentication. Threrfore, APP_ID and SECRET settings
 
     export FACEBOOK_APP_ID=my_app_id
     export FACEBOOK_API_SECRET=my_secret
+
 
 Getting started
 ================

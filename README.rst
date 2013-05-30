@@ -54,10 +54,4 @@ Project information
 Project layout is based on the Two scoops of Django project template
 for Django 1.5.
 
-To use this project follow these steps:
-
-#. Create your working environment
-#. Install Django and additional dependencies
-#. Use the Django admin to create the project
-
-For more information see docs/install.rst
+For installation instructions, see docs/install.rst

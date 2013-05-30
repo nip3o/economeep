@@ -1,7 +1,4 @@
-import datetime
-
 from django.contrib.auth import logout as auth_logout
-from django.contrib.auth.views import login as auth_login
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
 

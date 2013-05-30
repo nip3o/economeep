@@ -1,4 +1,5 @@
-Deploy
-========
+Deploying
+**********
 
-This is where you describe how the project is deployed in production.
+Currently, economeep is not deployed anywhere, but if you want to try I
+would recommend using Gunicorn + nginx with supervisord.

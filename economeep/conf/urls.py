@@ -16,7 +16,6 @@ urlpatterns = patterns(
 
     # Global third-party views
     url(r'', include('social_auth.urls')),
-    url(r'^api/', include('rest_framework.urls', namespace='rest_framework')),
 
     # Base views
     url(r'^$', TemplateView.as_view(template_name='base.html')),
@@ -27,9 +26,9 @@ urlpatterns = patterns(
     # Apps
     url(r'^payments/', include('payments.urls')),
     url(r'^stocks/', include('stocks.urls')),
-
     url(r'^users/', include('users.urls')),
 
+    # API enties without own apps...
     url(r'^categories/$', CategoryList.as_view(), name='category-list'),
     url(r'^categories/(?P<pk>[0-9]+)/$', CategoryDetails.as_view(), name='category-detail'),
 
