@@ -5,6 +5,7 @@ economeeep
 A project in the course **TDDD27** - Advanced Web Programming, VT-2013
 
 **Niclas Olofsson**, nicol271@student.liu.se
+https://github.com/nip3o/economeep
 
 
 Functional specification
@@ -49,9 +50,16 @@ and cached in the database or a cache, instead of on a per-request
 basis, by using someting like ``django-celery``.
 
 
-Project information
---------------------
-Project layout is based on the Two scoops of Django project template
-for Django 1.5.
+Installation
+-------------
+For installation instructions, see ``docs/install.rst``
 
-For installation instructions, see docs/install.rst
+
+Folder structure
+-----------------
+Some folders have their own README-files that specifies the contents of
+that specific folder.
+
+* ./docs - documentation
+* ./economeep - project source code, see ./economeep/README.rst
+* ./requirements - files for specifying project dependencies
