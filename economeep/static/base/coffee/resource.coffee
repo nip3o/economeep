@@ -1,6 +1,14 @@
-# Custom implementation of Angular.js resource, since the original
-# implemetation has some flaws related to URLs.
+"""
+Custom implementation of Angular.js resource, since the original
+implemetation is very limited and also has some flaws related to URLs.
+
+A resource is simply a wrapper for creating and fetching model instances,
+not unlike the Django ORM.
+
+ecoResource is the base class for all resources.
+"""
 angular.module('economeep').factory 'ecoResource', ($q, $http, $filter) ->
+    # Utility function needed for array checking
     typeIsArray = Array.isArray || ( value ) -> return {}.toString.call( value ) is '[object Array]'
 
     class ecoResource
@@ -8,13 +16,20 @@ angular.module('economeep').factory 'ecoResource', ($q, $http, $filter) ->
         constructor: (data) ->
             angular.copy(@constructor.convertFromServer(data), this)
 
-        # Hook for converting attributes on the object sent by server,
-        # before creating a resource class of the object
+        """
+        convertFromServer is a hook for converting attributes on the
+        object sent by server, before creating a resource class of the object.
+        """
         @convertFromServer = (data) -> data
 
+        """
+        convertToServer is a hook for converting attributes on objects
+        that are being sent to the server.
+        """
         @convertToServer = (data) -> data
 
         $save: ->
+            """ Saves the object by sending a POST-request to the resource URL. """
             deferred = $q.defer()
 
             data = {}
@@ -29,8 +44,8 @@ angular.module('economeep').factory 'ecoResource', ($q, $http, $filter) ->
 
             return deferred.promise
 
-        # Fetch all instances of a resource from API
         @query = ->
+            """ Fetches all instances of a resource from API. """
             deferred = $q.defer()
 
             result = []
@@ -45,8 +60,8 @@ angular.module('economeep').factory 'ecoResource', ($q, $http, $filter) ->
 
             return deferred.promise
 
-        # Get objects filtered by date
         @byDate = (date) ->
+            """ Fetches objects filtered by a given date. """
             deferred = $q.defer()
 
             dateString = $filter('date')(date, "yyyy-MM-dd")
@@ -65,8 +80,8 @@ angular.module('economeep').factory 'ecoResource', ($q, $http, $filter) ->
 
             return deferred.promise
 
-        # Get a specific object instance
         @get = (instanceUrl) ->
+            """ Fetches a specific object instance. """
             deferred = $q.defer()
 
             result = []

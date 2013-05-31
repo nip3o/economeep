@@ -13,12 +13,13 @@ Installing and running tests
 
    README
 
-API documentation
------------------
+Files and API documentation
+----------------------------
 
 .. toctree::
    :maxdepth: 2
 
+   files
    api
 
 
