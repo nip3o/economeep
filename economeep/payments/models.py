@@ -29,6 +29,7 @@ class CategoryQuerySet(models.query.QuerySet):
 
 class PaymentQuerySet(models.query.QuerySet):
     def for_month(self, year, month):
+        """ Filters as payment queryset by the month of a year. """
         return self.filter(date__year=year,
                            date__month=month)
 

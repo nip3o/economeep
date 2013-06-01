@@ -5,6 +5,7 @@ from model_utils import Choices
 
 
 class Stock(models.Model):
+    """ The Stock model represents a stock, with a name and currency. """
     class Meta:
         verbose_name = _('stock')
         verbose_name_plural = _('stocks')
@@ -16,6 +17,7 @@ class Stock(models.Model):
     currency = models.CharField(choices=CURRENCY, max_length=10)
 
     def latest_stock_price(self):
+        """ Returns the latest existing price for the stock. """
         try:
             return self.stockprice_set.latest().price
         except StockPrice.DoesNotExist:
@@ -26,6 +28,10 @@ class Stock(models.Model):
 
 
 class StockPrice(models.Model):
+    """
+    A StockPrice represents the price for a certain Stock at a
+    certain datetime.
+    """
     class Meta:
         verbose_name = _('stock price')
         verbose_name_plural = _('stock prices')

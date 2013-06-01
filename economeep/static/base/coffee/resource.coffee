@@ -1,11 +1,12 @@
 """
 Custom implementation of Angular.js resource, since the original
-implemetation is very limited and also has some flaws related to URLs.
+implemetation is very limited and also has a quite bad issue related to URLs.
+https://github.com/angular/angular.js/issues/992
 
 A resource is simply a wrapper for creating and fetching model instances,
 not unlike the Django ORM.
 
-ecoResource is the base class for all resources.
+ecoResource is the base class for all resources in economeep.
 """
 angular.module('economeep').factory 'ecoResource', ($q, $http, $filter) ->
     # Utility function needed for array checking
@@ -32,11 +33,13 @@ angular.module('economeep').factory 'ecoResource', ($q, $http, $filter) ->
             """ Saves the object by sending a POST-request to the resource URL. """
             deferred = $q.defer()
 
+            # Copy object since we do not want convertToServer() to trash it
             data = {}
             angular.copy(this, data)
 
             $http.post(@constructor.url, @constructor.convertToServer(data))
                 .success (data) =>
+                    # All saved object uses URLs as unique identifiers
                     this.url = data.url
                     deferred.resolve(this)
                 .error (data) =>
@@ -52,6 +55,7 @@ angular.module('economeep').factory 'ecoResource', ($q, $http, $filter) ->
             $http.get(@url)
                 .success (data) =>
                     for item in data
+                        # Create an array of new object instances
                         result.push(new this(item))
                     deferred.resolve(result)
 
@@ -67,6 +71,8 @@ angular.module('economeep').factory 'ecoResource', ($q, $http, $filter) ->
             dateString = $filter('date')(date, "yyyy-MM-dd")
             $http.get(@url + '?' + $.param({'date': dateString}))
                 .success (data) =>
+                    # Create one or multiple instances depending on if a
+                    # single or multiple results was recieved.
                     if typeIsArray(data)
                         result = []
                         for item in data

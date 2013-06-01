@@ -5,6 +5,8 @@ from .models import Category, Payment
 
 class PaymentSumField(serializers.DecimalField):
     def field_to_native(self, category, field_name):
+        # Querysets for newly saved objects does not have the
+        # payment_sum-attribute.
         if hasattr(category, 'payment_sum'):
             return category.payment_sum
         return category.get_payment_sum()

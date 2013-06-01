@@ -17,6 +17,9 @@ class BudgetQuerySet(models.query.QuerySet):
 
 
 class Budget(models.Model):
+    """
+    A Budget represents the budget for a certain User and month.
+    """
     class Meta:
         verbose_name = _('budget')
         verbose_name_plural = _('budgets')
@@ -24,6 +27,7 @@ class Budget(models.Model):
     def __unicode__(self):
         return "%d/%d" % (self.month_start_date.month, self.month_start_date.year)
 
+    # using two integer fields instead would probably be a better solution...
     month_start_date = models.DateField(_('month start date'))
     user = models.ForeignKey(User)
 
@@ -31,6 +35,10 @@ class Budget(models.Model):
 
 
 class BudgetEntry(models.Model):
+    """
+    Each BudgetEntry specifies the amount to spend for a certain category
+    and a certain Budget.
+    """
     class Meta:
         verbose_name = _('budget entry')
         verbose_name_plural = _('budget entries')

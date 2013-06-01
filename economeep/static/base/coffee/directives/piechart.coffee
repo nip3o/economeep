@@ -1,6 +1,9 @@
-# Highcharts directive for piecharts
-# Inspired by https://github.com/rootux/angular-highcharts-directive/
 angular.module("economeep").directive 'piechart', ->
+    """
+    Element directive that renders a Highcharts piechart.
+    Inspired by https://github.com/rootux/angular-highcharts-directive/
+    """
+
     restrict: "E"
     template: "<div></div>"
     link: (scope, element, attrs) ->

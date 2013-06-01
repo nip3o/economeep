@@ -1,10 +1,9 @@
-app = angular.module('economeep')
-
-app.factory 'User', (ecoResource, $q, $http) ->
+angular.module('economeep').factory 'User', (ecoResource, $q, $http) ->
     class User extends ecoResource
         @url = 'users/'
 
         logOut: ->
+            """ Log out the current user. """
             deferred = $q.defer()
 
             $http.post(@constructor.url + 'logout/')
@@ -17,6 +16,7 @@ app.factory 'User', (ecoResource, $q, $http) ->
 
 
         @getCurrent: ->
+            """ Fetches the currently logged-in user. """
             deferred = $q.defer()
 
             $http.get(@url + 'current/')

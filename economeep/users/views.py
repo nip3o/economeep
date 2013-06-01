@@ -7,7 +7,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 
-from utils.mixins import UserObjectMixin
+from utils.mixins import UserObjectDateFilterMixin
 from utils.date import string_to_date
 
 from .serializers import (UserSerializer, BudgetSerializer, BudgetDeserializer,
@@ -63,7 +63,7 @@ class BudgetEntryDetails(generics.ListAPIView):
     serializer_class = BudgetEntrySerializer
 
 
-class BudgetList(UserObjectMixin,
+class BudgetList(UserObjectDateFilterMixin,
                  mixins.CreateModelMixin, generics.RetrieveAPIView):
     """
     API view for fetching a Budget instance by date, or creating a new instance.
@@ -82,13 +82,7 @@ class BudgetList(UserObjectMixin,
     def get_object(self):
         # This function is called when issuing GET on a RetrieveAPIView,
         # and should return a single model instance queryset
-        qs = super(BudgetList, self).get_queryset()
-
-        date = self.request.QUERY_PARAMS.get('date', None)
-        if date:
-            date = string_to_date(date)
-            qs = qs.for_month(date.year, date.month)
-
+        qs = UserObjectDateFilterMixin.get_queryset(self)
         return get_object_or_404(qs)
 
     def post(self, request, *args, **kwargs):

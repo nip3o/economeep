@@ -1,5 +1,10 @@
 angular.module('economeep').controller 'AddBudgetEntryController', ($scope, Budget, Category, categories, ecoDialog) ->
+    """
+    Controller for the 'add new budget entry' dialog.
+    """
+    # Get the passed-in budget entry
     $scope.entry = ecoDialog.getData()
+    # Set all global categories to scope
     $scope.categories = categories.getAll()
 
     $scope.save = ->
