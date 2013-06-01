@@ -10,7 +10,7 @@ A project in the course **TDDD27** - Advanced Web Programming, VT-2013
 Gitlab vs. Github
 ------------------
 Gitlab lacks support for REST documents, so reading the source at Github
-is recommended. However, except from this README file, the content is the same.
+is recommended. However, the content is the same.
 
 https://github.com/nip3o/economeep
 
