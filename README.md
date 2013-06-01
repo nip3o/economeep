@@ -20,6 +20,23 @@ Screencast
 www.youtube.com/watch?v=7PzGtbyu6NI
 
 
+Folder structure
+-----------------
+Some folders have their own README-files that specifies the contents of
+that specific folder.
+
+* ``./docs`` - documentation
+* ``./economeep`` - project source code, see ``./economeep/README.rst``
+* ``./requirements`` - files for specifying project dependencies
+
+An overview of files can be found in ``docs/files.rst``
+
+
+Installation
+-------------
+For installation instructions, see ``docs/install.rst``
+
+
 Functional specification
 -------------------------
 
@@ -60,20 +77,3 @@ API:s that could be used and probably would work fine for a small school
 project does exist. Data should preferrably be fetched in the background
 and cached in the database or a cache, instead of on a per-request
 basis, by using someting like ``django-celery``.
-
-
-Installation
--------------
-For installation instructions, see ``docs/install.rst``
-
-
-Folder structure
------------------
-Some folders have their own README-files that specifies the contents of
-that specific folder.
-
-* ``./docs`` - documentation
-* ``./economeep`` - project source code, see ``./economeep/README.rst``
-* ``./requirements`` - files for specifying project dependencies
-
-An overview of files can be found in ``docs/files.rst``
