@@ -6,7 +6,18 @@ A project in the course **TDDD27** - Advanced Web Programming, VT-2013
 
 **Niclas Olofsson**, nicol271@student.liu.se
 
+
+Gitlab vs. Github
+------------------
+Gitlab lacks support for REST documents, so reading the source at Github
+is recommended. However, except from this README file, the content is the same.
+
 https://github.com/nip3o/economeep
+
+
+Screencast
+-----------
+www.youtube.com/watch?v=7PzGtbyu6NI
 
 
 Functional specification
