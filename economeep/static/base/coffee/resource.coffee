@@ -81,7 +81,7 @@ angular.module('economeep').factory 'ecoResource', ($q, $http, $filter) ->
             return deferred.promise
 
         @get = (instanceUrl) ->
-            """ Fetches a specific object instance. """
+            """ Fetches a specific object instance by URL. """
             deferred = $q.defer()
 
             result = []

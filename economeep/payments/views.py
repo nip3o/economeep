@@ -1,6 +1,6 @@
 from rest_framework import generics
 
-from utils.mixins import DateFilterMixin, UserObjectDateFilterMixin
+from utils.mixins import UserObjectDateFilterMixin
 
 from .models import Category, Payment
 from .serializers import CategorySerializer, PaymentSerializer
@@ -21,13 +21,13 @@ class PaymentsList(UserObjectDateFilterMixin, generics.ListCreateAPIView):
         return qs.order_by('date')
 
 
-class CategoryList(DateFilterMixin, generics.ListCreateAPIView):
+class CategoryList(UserObjectDateFilterMixin, generics.ListCreateAPIView):
     """ API view for fetching all categories or create a new Category. """
     model = Category
     serializer_class = CategorySerializer
 
     def get_queryset(self):
-        qs = DateFilterMixin.date_filter(self, Category.objects.all())
+        qs = UserObjectDateFilterMixin.date_filter(self, Category.objects.all())
         return qs.with_payment_sum()
 
 

@@ -7,7 +7,7 @@ app.factory 'User', (ecoResource, $q, $http) ->
         logOut: ->
             deferred = $q.defer()
 
-            $http.post(@url + 'logout/')
+            $http.post(@constructor.url + 'logout/')
                  .success ->
                     deferred.resolve()
                 .error (data) ->

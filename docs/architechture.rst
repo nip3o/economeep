@@ -25,7 +25,7 @@ Server side
 * ``models.py`` - definitions of Django models, i.e. database objects
 * ``serializers.py`` - Django REST Framework Serializers for (de)serialization
                        of model instances.
-* ``urls.py`` - declaring patters for URL:s. Global URL:s, including API
+* ``urls.py`` - declares patters for URL:s. Global URL:s, including API
                 URL:s without an app with it own name, is definied in
                 ``economeep/conf/urls.py``, while app-specific URL:s is
                 defined in the ``urls.py`` of each app.
@@ -35,8 +35,12 @@ Server side
 
 Client side
 ------------
+App specific static files are located in ``*appname*/static/*appname/*``,
+in order to create a namespace for them (which means you can see from
+which app a static file is imported from).
 
 * ``directives`` - specifies custom HTML tags or attributes to be used by Angular
-* ``services`` - shared utility-functions that is not to be instanciated
-* ``filters`` - formatters used in templates, used like `| myfilter`
+* ``services`` - utility-functions and managers/containers for shared data
+* ``filters`` - formatters used in templates, used as ``| myfilter``
 * ``resources`` - used for creating and fetching model instances
+
